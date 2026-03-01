@@ -1,8 +1,4 @@
 /**
- * Types partagés pour le portfolio
- */
-
-/**
  * Props pour BaseLayout
  */
 export interface BaseLayoutProps {
@@ -22,15 +18,8 @@ export interface NavProps {
  * Catégories de blog disponibles
  */
 export type BlogCategory =
-  | "architecture"
-  | "react"
-  | "typescript"
-  | "go"
-  | "performance"
-  | "design-system"
-  | "devops"
-  | "journey"
-  | "autre";
+  | "symfony"
+  | "journey";
 
 /**
  * Props pour BlogCard
@@ -63,13 +52,6 @@ export interface ArticleLayoutProps {
  * Labels des catégories pour l'affichage
  */
 export const categoryLabels: Record<BlogCategory, string> = {
-  architecture: "Architecture",
-  react: "React",
-  typescript: "TypeScript",
-  go: "Go",
-  performance: "Performance",
-  "design-system": "Design System",
-  devops: "DevOps",
+  symfony: "Symfony",
   journey: "Parcours",
-  autre: "Autre",
 };

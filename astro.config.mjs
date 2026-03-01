@@ -2,6 +2,10 @@
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 
+import react from "@astrojs/react";
+import markdoc from "@astrojs/markdoc";
+import keystatic from "@keystatic/astro";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://cajytam.com",
@@ -11,5 +15,8 @@ export default defineConfig({
         "simple-icons": ["*"],
       },
     }),
+    react(),
+    markdoc(),
+    keystatic(),
   ],
 });
