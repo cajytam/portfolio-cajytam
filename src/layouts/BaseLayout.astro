@@ -1,0 +1,63 @@
+---
+import "../styles/global.css";
+import "@fontsource-variable/dm-sans";
+import "@fontsource/dm-serif-display/400.css";
+import "@fontsource/dm-serif-display/400-italic.css";
+import "@fontsource/dm-mono/300.css";
+import "@fontsource/dm-mono/400.css";
+import "@fontsource/dm-mono/500.css";
+import type { BaseLayoutProps } from "../types";
+
+type Props = BaseLayoutProps;
+
+const {
+  title = "Cédric Matyja - Développeur Full Stack",
+  description = "Développeur Full Stack passionné par le PHP/Symfony, Typescript, React, Vuejs et Python",
+  ogImage = "/images/og-default.png",
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta
+      name="theme-color"
+      content="#0a0a0f"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script is:inline>
+      const saved = localStorage.getItem("theme");
+      const prefersDark =
+        window.matchMedia("(prefers-color-scheme: light)").matches === false;
+      const theme = saved || (prefersDark ? "dark" : "light");
+      if (theme === "light") {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    </script>
+
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

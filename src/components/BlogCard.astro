@@ -1,0 +1,178 @@
+---
+import type { BlogCardProps } from "../types";
+import { categoryLabels } from "../types";
+
+type Props = BlogCardProps;
+
+const {
+  slug,
+  title,
+  excerpt,
+  category,
+  publishedAt,
+  readingTime,
+  coverImage,
+  size = "sm",
+} = Astro.props;
+
+const dateStr = publishedAt.toLocaleDateString("fr-FR", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+---
+
+<a
+  href={`/blog/${slug}`}
+  class:list={["blog-card", size === "lg" && "blog-card--lg"]}
+>
+  <div class:list={["blog-img", size === "sm" && "blog-img--sm"]}>
+    {
+      coverImage ? (
+        <img src={coverImage} alt={title} />
+      ) : (
+        <div class="placeholder">📄</div>
+      )
+    }
+  </div>
+  <div class="blog-body">
+    <div class="blog-cat">
+      {categoryLabels[category] ?? category} · {readingTime} min
+    </div>
+    <div class:list={["blog-title", size === "sm" && "blog-title-sm"]}>
+      {title}
+    </div>
+    <div class="blog-excerpt">{excerpt}</div>
+    <div class="blog-meta">
+      <div class="blog-avatar">AM</div>
+      {dateStr}
+      <span class="blog-arrow">→</span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s;
+  }
+
+  .blog-card:hover {
+    border-color: rgb(124 109 250 / 30%);
+    box-shadow: 0 2rem 6rem rgb(0 0 0 / 40%);
+    transform: translateY(-0.3rem);
+  }
+
+  .blog-img {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 22rem;
+    overflow: hidden;
+    font-size: 6.4rem;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  }
+
+  .blog-img img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .blog-img .placeholder {
+    position: relative;
+    z-index: 1;
+    font-size: 6.4rem;
+  }
+
+  .blog-img::after {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    content: "";
+    background: linear-gradient(to bottom, transparent 60%, var(--bg3));
+  }
+
+  .blog-img-sm {
+    height: 14rem;
+    font-size: 4.2rem;
+  }
+
+  .blog-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 2.4rem;
+  }
+
+  .blog-cat {
+    margin-bottom: 1rem;
+    font-family: "DM Mono", monospace;
+    font-size: 1.05rem;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .blog-title {
+    margin-bottom: 1.2rem;
+    font-family: "DM Serif Display", serif;
+    font-size: 2.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.05rem;
+  }
+
+  .blog-title-sm {
+    font-size: 1.7rem;
+  }
+
+  .blog-excerpt {
+    flex: 1;
+    font-size: 1.35rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--text2);
+  }
+
+  .blog-meta {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    padding-top: 1.6rem;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: var(--text3);
+    border-top: 1px solid var(--border);
+  }
+
+  .blog-avatar {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 50%;
+  }
+
+  .blog-arrow {
+    margin-left: auto;
+    color: var(--accent2);
+  }
+</style>

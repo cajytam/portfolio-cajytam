@@ -1,0 +1,122 @@
+---
+import type { NavProps } from "../types";
+
+type Props = NavProps;
+
+const { currentPath = "/" } = Astro.props;
+const isHome = currentPath === "/";
+---
+
+<nav>
+  <a href="/" class="nav-logo">CM<span>.</span></a>
+  <ul class="nav-links">
+    {
+      isHome ? (
+        <>
+          <li>
+            <a href="#parcours">Parcours</a>
+          </li>
+          <li>
+            <a href="#formation">Formation</a>
+          </li>
+          <li>
+            <a href="#stack">Stack</a>
+          </li>
+          <li>
+            <a href="#projects">Projets</a>
+          </li>
+          <li>
+            <a href="#blog">Blog</a>
+          </li>
+          <li>
+            <a href="#contact" class="nav-cta">
+              Contact
+            </a>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <a href="/">Accueil</a>
+          </li>
+          <li>
+            <a href="/blog">Blog</a>
+          </li>
+          <li>
+            <a href="/#contact" class="nav-cta">
+              Contact
+            </a>
+          </li>
+        </>
+      )
+    }
+  </ul>
+</nav>
+
+<style>
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 6.4rem;
+    padding: 0 clamp(2.4rem, 5vw, 8rem);
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(2rem);
+  }
+
+  .nav-logo {
+    font-family: "DM Serif Display", serif;
+    font-size: 3rem;
+    color: var(--text);
+    letter-spacing: -0.05rem;
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--accent2);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.8rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    padding: 0.6rem 1.4rem;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--text2);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border-radius: 0.8rem;
+    transition:
+      color 0.2s,
+      background 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--text);
+    background: rgb(255 255 255 / 5%);
+  }
+
+  :root[data-theme="light"] .nav-links a:hover {
+    background: rgb(0 0 0 / 5%);
+  }
+
+  .nav-cta {
+    font-weight: 500 !important;
+    color: #fff !important;
+    background: var(--accent) !important;
+  }
+
+  .nav-cta:hover {
+    opacity: 0.85;
+  }
+</style>

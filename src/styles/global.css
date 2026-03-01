@@ -1,0 +1,228 @@
+/*********************************  */
+
+/****** VARIABLES ********/
+
+/*********************************  */
+:root {
+  --bg: #0a0a0f;
+  --bg2: #0f0f16;
+  --bg3: #14141e;
+  --surface: #1a1a26;
+  --border: rgb(255 255 255 / 7%);
+  --border2: rgb(255 255 255 / 12%);
+  --accent: #7c6dfa;
+  --accent2: #a78bfa;
+  --accent-glow: rgb(124 109 250 / 15%);
+  --amber: #f59e0b;
+  --green: #10b981;
+  --text: #e8e6f0;
+  --text2: rgb(232 230 240 / 55%);
+  --text3: rgb(232 230 240 / 35%);
+  --radius: 1.2rem;
+  --radius-lg: 2rem;
+  --nav-bg: rgb(10 10 15 / 80%);
+  --shadow-card: 0 2rem 6rem rgb(0 0 0 / 40%);
+}
+
+:root[data-theme="light"] {
+  --bg: #f5f4fb;
+  --bg2: #eeecf9;
+  --bg3: #e8e5f5;
+  --surface: #fff;
+  --border: rgb(0 0 0 / 7%);
+  --border2: rgb(0 0 0 / 12%);
+  --accent: #6458e8;
+  --accent2: #8b7cf8;
+  --accent-glow: rgb(100 88 232 / 12%);
+  --amber: #d97706;
+  --green: #059669;
+  --text: #1a1830;
+  --text2: rgb(26 24 48 / 60%);
+  --text3: rgb(26 24 48 / 38%);
+  --nav-bg: rgb(245 244 251 / 85%);
+  --shadow-card: 0 20px 60px rgb(0 0 0 / 10%);
+}
+
+/*********************************  */
+
+/****** BASE ********/
+
+/*********************************  */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 62.5%;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.font-serif {
+  font-family: "DM Serif Display", serif;
+}
+
+.font-mono {
+  font-family: "DM Mono", monospace;
+}
+
+/*********************************  */
+
+/****** SECTION ********/
+
+/*********************************  */
+.section-tag {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.6rem;
+  font-family: "DM Mono", monospace;
+  font-size: 1.1rem;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.section-tag::before {
+  display: block;
+  width: 2.4rem;
+  height: 1px;
+  content: "";
+  background: var(--accent2);
+}
+
+.section-title {
+  margin-bottom: 1.6rem;
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(3.2rem, 4vw, 5.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.15rem;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--accent2);
+}
+
+.section-sub {
+  max-width: 54rem;
+  margin-bottom: 6.4rem;
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--text2);
+}
+
+/*********************************  */
+
+/****** BOUTON ********/
+
+/*********************************  */
+.btn {
+  display: inline-flex;
+  gap: 0.8rem;
+  align-items: center;
+  padding: 1.3rem 2.6rem;
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 1rem;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  color: #fff;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 1px rgb(124 109 250 / 30%),
+    0 0.8rem 3.2rem rgb(124 109 250 / 25%);
+}
+
+.btn-primary:hover {
+  background: var(--accent2);
+  transform: translateY(-0.1rem);
+}
+
+.btn-ghost {
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border2);
+}
+
+.btn-ghost:hover {
+  background: rgb(255 255 255 / 5%);
+}
+
+/*********************************  */
+
+/****** TAG ********/
+
+/*********************************  */
+.tag {
+  padding: 0.3rem 1rem;
+  font-family: "DM Mono", monospace;
+  font-size: 1.1rem;
+  color: var(--accent2);
+  background: rgb(124 109 250 / 8%);
+  border: 1px solid rgb(124 109 250 / 15%);
+  border-radius: 0.6rem;
+}
+
+/*********************************  */
+
+/****** ANIMATIONS ********/
+
+/*********************************  */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulsation {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(0.85);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.7s ease both;
+}
+
+.delay-1 {
+  animation-delay: 0.1s;
+}
+
+.delay-2 {
+  animation-delay: 0.2s;
+}
+
+.delay-3 {
+  animation-delay: 0.3s;
+}

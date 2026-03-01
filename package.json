@@ -6,9 +6,25 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prettier:write": "prettier --write .",
+    "lint": "stylelint \"**/*.{css,astro}\" && prettier --check .",
+    "lint:fix": "stylelint \"**/*.{css,astro}\" --fix && prettier --write ."
   },
   "dependencies": {
-    "astro": "^5.17.1"
+    "@fontsource-variable/dm-sans": "^5.2.8",
+    "@fontsource/dm-mono": "^5.2.7",
+    "@fontsource/dm-serif-display": "^5.2.8",
+    "@iconify-json/simple-icons": "^1.2.71",
+    "astro": "^5.18.0",
+    "astro-icon": "^1.1.5"
+  },
+  "devDependencies": {
+    "postcss-html": "^1.8.1",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
+    "stylelint": "^17.4.0",
+    "stylelint-config-recess-order": "^7.6.1",
+    "stylelint-config-standard": "^40.0.0"
   }
 }
