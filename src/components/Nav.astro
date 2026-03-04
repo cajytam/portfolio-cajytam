@@ -82,30 +82,6 @@ const isHome = currentPath === "/";
     color: var(--accent2);
   }
 
-  .nav-links {
-    display: flex;
-    gap: 0.8rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    padding: 0.6rem 1.4rem;
-    font-size: 1.35rem;
-    font-weight: 400;
-    color: var(--text2);
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    border-radius: 0.8rem;
-    transition:
-      color 0.2s,
-      background 0.2s;
-  }
-
-  .nav-links a:hover {
-    color: var(--text);
-    background: rgb(255 255 255 / 5%);
-  }
-
   :root[data-theme="light"] .nav-links a:hover {
     background: rgb(0 0 0 / 5%);
   }

@@ -1,0 +1,49 @@
+---
+interface Props {
+  size?: "sm" | "md" | "lg";
+  hover?: boolean;
+  class?: string;
+}
+
+const { size = "md", hover = true, class: className = "" } = Astro.props;
+---
+
+<div class:list={["card", `card-${size}`, hover && "card-hover", className]}>
+  <slot />
+</div>
+
+<style>
+  .card {
+    overflow: hidden;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+  }
+
+  .card-hover:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0.8rem 2.4rem var(--accent-glow);
+    transform: translateY(-0.3rem);
+  }
+
+  .card-sm {
+    padding: 1.2rem;
+  }
+
+  .card-md {
+    padding: 1.6rem;
+  }
+
+  .card-lg {
+    padding: 2rem;
+  }
+
+  .dark-mode .card {
+    background: rgb(51 65 85 / 50%);
+  }
+
+  :root[data-theme="light"] .card {
+    background: rgb(241 245 249 / 80%);
+  }
+</style>

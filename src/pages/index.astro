@@ -2,7 +2,8 @@
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Nav from "../components/Nav.astro";
+import StickyNav from "../components/StickyNav.astro";
+import SkipLink from "../components/SkipLink.astro";
 import BlogCard from "../components/BlogCard.astro";
 import meImage from "../assets/me.png";
 import { Icon } from "astro-icon/components";
@@ -24,579 +25,548 @@ const sidePosts = blogPosts
 ---
 
 <BaseLayout>
-  <Nav currentPath="/" />
+  <SkipLink />
+  <StickyNav />
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-    <div class="hero-wrapper">
-      <div class="hero-content">
-        <div class="hero-visual fade-up delay-2">
-          <div class="avatar-wrap">
-            <Image
-              src={meImage}
-              alt="Cédric Matyja en Pixel Art"
-              class="avatar-img"
-            />
-            <div class="avatar-ring"></div>
-            <div class="avatar-glow"></div>
-          </div>
-        </div>
-
-        <div>
-          <h1 class="fade-up delay-1">
-            Cédric <em>Matyja</em><br />
-            développeur<em><br />fullstack</em>
-          </h1>
-
-          <p class="hero-desc fade-up delay-2">
-            Basé près de Lille, je suis spécialisé en PHP / Symfony, TypeScript
-            / Vue.js / React.js et Python.
-          </p>
-
-          <div class="hero-actions fade-up delay-3">
-            <a
-              href="https://www.linkedin.com/in/c-matyja/"
-              target="_blank"
-              rel="noopener"
-              class="social-btn linkedin"
-            >
-              <Icon name="simple-icons:linkedin" class="social-icon" />
-              <span class="social-tooltip">LinkedIn</span>
-            </a>
-            <a
-              href="https://github.com/cajytam"
-              target="_blank"
-              rel="noopener"
-              class="social-btn github"
-            >
-              <Icon name="simple-icons:github" class="social-icon" />
-              <span class="social-tooltip">GitHub</span>
-            </a>
-            <a
-              href="https://gitlab.com/cmatyja"
-              target="_blank"
-              rel="noopener"
-              class="social-btn gitlab"
-            >
-              <Icon name="simple-icons:gitlab" class="social-icon" />
-              <span class="social-tooltip">GitLab</span>
-            </a>
-            <a href="/blog" class="btn btn-primary">
-              <Icon name="simple-icons:files" class="blog-btn-icon" />
-              Mon blog
-            </a>
-          </div>
-
-          <div class="hero-stats fade-up delay-3">
-            <div>
-              <div class="stat-val">
-                {Math.floor(new Date().getFullYear() - 2013.5)}+
-              </div>
-              <div class="stat-label">
-                ans à<br />transformer des<br />idées en produits
-              </div>
-            </div>
-            <div>
-              <div class="stat-val">
-                {Math.floor(new Date().getFullYear() - 2021)}+
-              </div>
-              <div class="stat-label">
-                ans à<br />concevoir des<br />applications web
-              </div>
+  <main id="main-content">
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-wrapper">
+        <div class="hero-content">
+          <div class="hero-visual fade-up delay-2">
+            <div class="avatar-wrap">
+              <Image
+                src={meImage}
+                alt="Cédric Matyja en Pixel Art"
+                class="avatar-img"
+              />
+              <div class="avatar-ring"></div>
+              <div class="avatar-glow"></div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- PARCOURS -->
-  <section class="parcours" id="parcours">
-    <div class="section-wrapper">
-      <div class="section-tag">Expériences</div>
-      <h2 class="section-title">Mon <em>parcours</em><br />professionnel</h2>
-      <p class="section-sub">
-        16 ans d'expérience alliant comptabilité, administration système
-        d'informations et développement fullstack - avec une expertise en
-        Symfony, React et automatisation (en Python et VBA).
-      </p>
+          <div>
+            <h1 class="fade-up delay-1">
+              Cédric <em>Matyja</em><br />
+              développeur<em><br />fullstack</em>
+            </h1>
 
-      <div class="tl-wrap">
-        <div></div>
-        <div class="tl-entries">
-          {
-            [
-              {
-                year: "2024 - Présent",
-                role: "Développeur Full Stack",
-                company: "Cheef.fr · Roncq",
-                desc: [
-                  "Réalisation d'une application de gestion et suivi des leads en React et Symfony / API Platform",
-                  "Application de saisie et suivi des tickets SAV avec KPI associés",
-                  "Implémentation de Mercure pour l'affichage temps-réel du statut Aircall dans PrestaShop en SSE",
-                  "Consommation d'API et webhooks (Brevo, Aircall)",
-                  "Automatisation de production avec Docker Compose",
-                ],
-                tags: [
-                  "React",
-                  "Symfony",
-                  "API Platform",
-                  "Prestashop",
-                  "Docker",
-                  "Mercure",
-                ],
-              },
-              {
-                year: "2023 - 2024",
-                role: "Développeur Web",
-                company: "Enbro France / Earth Solar France · Roncq",
-                desc: [
-                  "Conception et développement d'un CRM de gestion de prospects et projets photovoltaïques",
-                  "Génération automatisée de devis détaillés avec implantation, dimensionnement et calcul d'amortissement",
-                  "Gestion complète des projets d'installation et documents administratifs",
-                  "Mise en production et maintenance évolutive",
-                ],
-                tags: ["Vue.js", "Symfony", "API Platform", "MySQL"],
-              },
-              {
-                year: "2022 - 2023",
-                role: "Analyste Programmeur EDI",
-                company: "Dornach France (groupe Ziegler) · Roncq",
-                desc: [
-                  "Développement de programmes de traduction de fichiers (plats ou normés) sous TradeXpress en langage RTE",
-                  "Gestion des tickets sous Jira",
-                ],
-                tags: ["RTE", "TradeXpress", "EDI", "Jira"],
-              },
-              {
-                year: "2019 - 2022",
-                role: "Développeur Web",
-                company: "Association Noémi · Roubaix",
-                desc: [
-                  "Refonte du site web de l'association sous Symfony",
-                  "Conception et modélisation en UML",
-                  "Wireframes, design et intégration du front-end",
-                  "Gestion des utilisateurs et actualités via back-office sécurisé",
-                  "Génération de reçus fiscaux en PDF et envoi par mail",
-                  "Tests unitaires et fonctionnels, mise en ligne du site",
-                ],
-                tags: ["Symfony", "UML", "PDF Generation", "Back-office"],
-              },
-              {
-                year: "2013 - 2022",
-                role: "Administrateur SI Finance Amélioration Continue",
-                company: "Castorama France SAS · Templamars",
-                desc: [
-                  "Administration des logiciels comptables (CODA et SAP)",
-                  "Développement d'outils en Python ou VBA (sous Access et Excel) afin d'automatiser, d'optimiser et de fiabiliser les traitements et les saisies en masse",
-                ],
-                tags: ["Python", "VBA", "SAP", "CODA"],
-              },
-              {
-                year: "2010 - 2013",
-                role: "Comptable",
-                company: "Castorama France SAS · Templamars",
-                desc: [
-                  "Saisie / rapprochement et règlement des factures fournisseurs",
-                  "Cadrage URSSAF et TVA, pointage des comptes de paie et participation aux clôtures mensuelles et annuelles",
-                ],
-                tags: ["Comptabilité", "Gestion Administrative"],
-                last: true,
-              },
-            ].map((item) => (
-              <div class="tl-entry">
-                <div class="tl-entry-year">{item.year}</div>
-                <div
-                  class:list={[
-                    "tl-entry-body",
-                    item.last && "tl-entry-body--last",
-                  ]}
-                >
-                  <div class="tl-role">{item.role}</div>
-                  <div class="tl-company">{item.company}</div>
-                  <ul class="tl-desc">
-                    {Array.isArray(item.desc) ? (
-                      item.desc.map((point) => <li>{point}</li>)
-                    ) : (
-                      <li>{item.desc}</li>
-                    )}
-                  </ul>
-                  <div class="tl-tags">
-                    {item.tags.map((t) => (
-                      <span class="tag">{t}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
+            <p class="hero-desc fade-up delay-2">
+              Basé près de Lille, je suis spécialisé en PHP / Symfony,
+              TypeScript / Vue.js / React.js et Python.
+            </p>
 
-  <!-- FORMATIONS -->
-  <section id="formation">
-    <div class="section-wrapper">
-      <div class="section-tag">Parcours académique</div>
-      <h2 class="section-title">Diplômes &<br /><em>formations</em></h2>
-      <p class="section-sub">
-        Un parcours combinant comptabilité et développement informatique,
-        complété par des formations continues (veille technologique et cours sur
-        Udemy) pour rester à jour.
-      </p>
+            <div class="hero-actions fade-up delay-3">
+              <a
+                href="https://www.linkedin.com/in/c-matyja/"
+                target="_blank"
+                rel="noopener"
+                class="social-btn linkedin"
+                aria-label="LinkedIn - Cedric Matyja"
+              >
+                <Icon name="simple-icons:linkedin" class="social-icon" />
+                <span class="social-tooltip">LinkedIn</span>
+              </a>
+              <a
+                href="https://github.com/cajytam"
+                target="_blank"
+                rel="noopener"
+                class="social-btn github"
+                aria-label="GitHub - Cedric Matyja"
+              >
+                <Icon name="simple-icons:github" class="social-icon" />
+                <span class="social-tooltip">GitHub</span>
+              </a>
+              <a
+                href="https://gitlab.com/cmatyja"
+                target="_blank"
+                rel="noopener"
+                class="social-btn gitlab"
+                aria-label="GitLab - Cedric Matyja"
+              >
+                <Icon name="simple-icons:gitlab" class="social-icon" />
+                <span class="social-tooltip">GitLab</span>
+              </a>
+              <a href="/blog" class="btn btn-primary">
+                <Icon name="simple-icons:files" class="blog-btn-icon" />
+                Mon blog
+              </a>
+            </div>
 
-      <div class="tl-wrap tl-formation">
-        <div></div>
-        <div class="tl-entries">
-          {
-            [
-              {
-                year: "2019",
-                role: "Licence - Concepteur Développeur d'Applications",
-                company: "M2i Formation Diplômante · Villeneuve d'Ascq",
-                desc: [],
-                tags: ["PHP", "Symfony", "JavaScript", "Java", "UML", "Scrum"],
-              },
-              {
-                year: "2009",
-                role: "Licence - Diplôme Comptable et de Gestion (DCG)",
-                company: "Lycée Malraux · Béthune",
-                desc: [],
-                tags: [
-                  "Comptabilité",
-                  "Suite Office",
-                  "Contrôle de Gestion",
-                  "Informatique de Gestion",
-                ],
-                last: true,
-              },
-            ].map((item) => (
-              <div class="tl-entry">
-                <div class="tl-entry-year">{item.year}</div>
-                <div
-                  class:list={[
-                    "tl-entry-body",
-                    item.last && "tl-entry-body-last",
-                  ]}
-                >
-                  <div class="tl-role">{item.role}</div>
-                  <div class="tl-company">{item.company}</div>
-                  <ul class="tl-desc">
-                    {Array.isArray(item.desc) ? (
-                      item.desc.map((point) => <li>{point}</li>)
-                    ) : (
-                      <li>{item.desc}</li>
-                    )}
-                  </ul>
-                  <div class="tl-tags">
-                    {item.tags.map((t) => (
-                      <span class="tag">{t}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STACK -->
-  <section class="stack" id="stack">
-    <div class="section-wrapper">
-      <div class="section-tag">Technologies</div>
-      <h2 class="section-title">Ma <em>stack</em><br />technique</h2>
-      <p class="section-sub">
-        Des technologies modernes et éprouvées pour créer des applications web
-        robustes et performantes.
-      </p>
-
-      <div class="stack-universe">
-        <div class="stack-categories">
-          {
-            [
-              {
-                label: "Frontend",
-                cls: "cat-front",
-                items: [
-                  ["simple-icons:typescript", "TypeScript"],
-                  ["simple-icons:vuedotjs", "Vue.js"],
-                  ["simple-icons:react", "React"],
-                  ["simple-icons:tailwindcss", "Tailwind"],
-                  ["simple-icons:symfony", "Symfony UX"],
-                  ["simple-icons:astro", "Astro"],
-                ],
-              },
-              {
-                label: "Backend",
-                cls: "cat-back",
-                items: [
-                  ["simple-icons:php", "PHP"],
-                  ["simple-icons:symfony", "Symfony"],
-                  ["custom:api-platform", "API Platform"],
-                  ["simple-icons:prestashop", "PrestaShop"],
-                  ["simple-icons:python", "Python"],
-                  ["simple-icons:fastapi", "FastAPI"],
-                ],
-              },
-              {
-                label: "Data",
-                cls: "cat-data",
-                items: [
-                  ["simple-icons:mysql", "MySQL"],
-                  ["simple-icons:postgresql", "PostgreSQL"],
-                  ["simple-icons:prisma", "Prisma"],
-                ],
-              },
-              {
-                label: "Infra & Tooling",
-                cls: "cat-infra",
-                items: [
-                  ["simple-icons:docker", "Docker"],
-                  ["custom:cicd", "CI/CD"],
-                  ["simple-icons:github", "GitHub"],
-                  ["simple-icons:vite", "Vite"],
-                  ["simple-icons:jira", "Jira"],
-                ],
-              },
-            ].map((cat) => (
+            <div class="hero-stats fade-up delay-3">
               <div>
-                <div class="stack-cat-label">{cat.label}</div>
-                <div class="stack-pills">
-                  {cat.items.map(([iconName, name]) => {
-                    const isCustom = iconName.startsWith("custom:");
-                    const customIcon = isCustom ? iconName.split(":")[1] : null;
-                    return (
-                      <div class:list={["stack-pill", cat.cls]}>
-                        <span class="sp-dot" />
-                        {isCustom ? (
-                          <img
-                            src={
-                              customIcon === "api-platform"
-                                ? apiPlatformIcon.src
-                                : cicdIcon.src
-                            }
-                            alt={name}
-                            class="sp-logo sp-logo-custom"
-                          />
-                        ) : (
-                          <Icon name={iconName} class="sp-logo" />
-                        )}
-                        {name}
-                      </div>
-                    );
-                  })}
+                <div class="stat-val">
+                  {Math.floor(new Date().getFullYear() - 2013.5)}+
+                </div>
+                <div class="stat-label">
+                  ans à<br />transformer des<br />idées en produits
                 </div>
               </div>
-            ))
-          }
-        </div>
-
-        <div class="stack-featured">
-          <div class="sf-header">
-            <div class="sf-header-dot"></div>
-            Stack favorite - usage quotidien
+              <div>
+                <div class="stat-val">
+                  {Math.floor(new Date().getFullYear() - 2021)}+
+                </div>
+                <div class="stat-label">
+                  ans à<br />concevoir des<br />applications web
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="sf-items">
+        </div>
+      </div>
+    </section>
+
+    <!-- PARCOURS -->
+    <section class="parcours" id="parcours">
+      <div class="section-wrapper">
+        <div class="section-tag">Expériences</div>
+        <h2 class="section-title">Mon <em>parcours</em><br />professionnel</h2>
+        <p class="section-sub">
+          16 ans d'expérience alliant comptabilité, administration système
+          d'informations et développement fullstack - avec une expertise en
+          Symfony, React et automatisation (en Python et VBA).
+        </p>
+
+        <div class="tl-wrap">
+          <div></div>
+          <div class="tl-entries">
             {
               [
                 {
-                  rank: "01",
-                  icon: "simple-icons:symfony",
-                  name: "Symfony + API Platform",
-                  desc: "Framework PHP de référence pour les APIs",
-                  exp: "5+ ans",
+                  year: "2024 - Présent",
+                  role: "Développeur Full Stack",
+                  company: "Cheef.fr · Roncq",
+                  desc: [
+                    "Réalisation d'une application de gestion et suivi des leads en React et Symfony / API Platform",
+                    "Application de saisie et suivi des tickets SAV avec KPI associés",
+                    "Implémentation de Mercure pour l'affichage temps-réel du statut Aircall dans PrestaShop en SSE",
+                    "Consommation d'API et webhooks (Brevo, Aircall)",
+                    "Automatisation de production avec Docker Compose",
+                  ],
+                  tags: [
+                    "React",
+                    "Symfony",
+                    "API Platform",
+                    "Prestashop",
+                    "Docker",
+                    "Mercure",
+                  ],
                 },
                 {
-                  rank: "02",
-                  icon: "simple-icons:vuedotjs",
-                  name: "Vue.js + TypeScript",
-                  desc: "Framework réactif pour interfaces modernes",
-                  exp: "3 ans",
+                  year: "2023 - 2024",
+                  role: "Développeur Web",
+                  company: "Enbro France / Earth Solar France · Roncq",
+                  desc: [
+                    "Conception et développement d'un CRM de gestion de prospects et projets photovoltaïques",
+                    "Génération automatisée de devis détaillés avec implantation, dimensionnement et calcul d'amortissement",
+                    "Gestion complète des projets d'installation et documents administratifs",
+                    "Mise en production et maintenance évolutive",
+                  ],
+                  tags: ["Vue.js", "Symfony", "API Platform", "MySQL"],
                 },
                 {
-                  rank: "03",
-                  icon: "simple-icons:react",
-                  name: "React",
-                  desc: "Applications web dynamiques et SPAs",
-                  exp: "2 ans",
+                  year: "2022 - 2023",
+                  role: "Analyste Programmeur EDI",
+                  company: "Dornach France (groupe Ziegler) · Roncq",
+                  desc: [
+                    "Développement de programmes de traduction de fichiers (plats ou normés) sous TradeXpress en langage RTE",
+                    "Gestion des tickets sous Jira",
+                  ],
+                  tags: ["RTE", "TradeXpress", "EDI", "Jira"],
                 },
                 {
-                  rank: "04",
-                  icon: "simple-icons:postgresql",
-                  name: "PostgreSQL",
-                  desc: "Base de données relationnelle puissante",
-                  exp: "4 ans",
+                  year: "2019 - 2022",
+                  role: "Développeur Web",
+                  company: "Association Noémi · Roubaix",
+                  desc: [
+                    "Refonte du site web de l'association sous Symfony",
+                    "Conception et modélisation en UML",
+                    "Wireframes, design et intégration du front-end",
+                    "Gestion des utilisateurs et actualités via back-office sécurisé",
+                    "Génération de reçus fiscaux en PDF et envoi par mail",
+                    "Tests unitaires et fonctionnels, mise en ligne du site",
+                  ],
+                  tags: ["Symfony", "UML", "PDF Generation", "Back-office"],
                 },
                 {
-                  rank: "05",
-                  icon: "simple-icons:docker",
-                  name: "Docker",
-                  desc: "Containerisation et environnements isolés",
-                  exp: "3 ans",
+                  year: "2013 - 2022",
+                  role: "Administrateur SI Finance Amélioration Continue",
+                  company: "Castorama France SAS · Templamars",
+                  desc: [
+                    "Administration des logiciels comptables (CODA et SAP)",
+                    "Développement d'outils en Python ou VBA (sous Access et Excel) afin d'automatiser, d'optimiser et de fiabiliser les traitements et les saisies en masse",
+                  ],
+                  tags: ["Python", "VBA", "SAP", "CODA"],
+                },
+                {
+                  year: "2010 - 2013",
+                  role: "Comptable",
+                  company: "Castorama France SAS · Templamars",
+                  desc: [
+                    "Saisie / rapprochement et règlement des factures fournisseurs",
+                    "Cadrage URSSAF et TVA, pointage des comptes de paie et participation aux clôtures mensuelles et annuelles",
+                  ],
+                  tags: ["Comptabilité", "Gestion Administrative"],
+                  last: true,
                 },
               ].map((item) => (
-                <div class="sf-item">
-                  <div class="sf-rank">{item.rank}</div>
-                  <Icon name={item.icon} class="sf-icon-img" />
-                  <div class="sf-info">
-                    <div class="sf-name">{item.name}</div>
-                    <div class="sf-desc">{item.desc}</div>
+                <div class="tl-entry">
+                  <div class="tl-entry-year">{item.year}</div>
+                  <div
+                    class:list={[
+                      "tl-entry-body",
+                      item.last && "tl-entry-body--last",
+                    ]}
+                  >
+                    <div class="tl-role">{item.role}</div>
+                    <div class="tl-company">{item.company}</div>
+                    <ul class="tl-desc">
+                      {Array.isArray(item.desc) ? (
+                        item.desc.map((point) => <li>{point}</li>)
+                      ) : (
+                        <li>{item.desc}</li>
+                      )}
+                    </ul>
+                    <div class="tl-tags">
+                      {item.tags.map((t) => (
+                        <span class="tag">{t}</span>
+                      ))}
+                    </div>
                   </div>
-                  <div class="sf-exp">{item.exp}</div>
                 </div>
               ))
             }
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PROJECTS -->
-  <section class="projects" id="projects">
-    <div class="section-wrapper">
-      <div class="section-tag">Portfolio</div>
-      <h2 class="section-title">Mes <em>projets</em></h2>
-      <p class="section-sub">
-        Projets personnels, proof of concept et side projects
-      </p>
+    <!-- FORMATIONS -->
+    <section id="formation">
+      <div class="section-wrapper">
+        <div class="section-tag">Parcours académique</div>
+        <h2 class="section-title">Diplômes &<br /><em>formations</em></h2>
+        <p class="section-sub">
+          Un parcours combinant comptabilité et développement informatique,
+          complété par des formations continues (veille technologique et cours
+          sur Udemy) pour rester à jour.
+        </p>
 
-      <div class="projects-grid">
-        {
-          [].map((project) => (
-            <div class="project-card">
-              <div class="project-image">
-                <img src={project.image} alt={project.title} />
-                <span class="project-type">{project.type}</span>
-              </div>
-              <div class="project-content">
-                <h3 class="project-title">{project.title}</h3>
-                <p class="project-desc">{project.description}</p>
-                <div class="project-tags">
-                  {project.tags.map((tag) => (
-                    <span class="project-tag">{tag}</span>
-                  ))}
-                </div>
-              </div>
-              <div class="project-footer">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener"
-                  class="project-link github-link"
-                  aria-label="GitHub"
-                >
-                  <Icon name="simple-icons:github" class="project-icon" />
-                </a>
-                {project.demo && (
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener"
-                    class="project-link demo-link"
-                    aria-label="Live Demo"
+        <div class="tl-wrap tl-formation">
+          <div></div>
+          <div class="tl-entries">
+            {
+              [
+                {
+                  year: "2019",
+                  role: "Licence - Concepteur Développeur d'Applications",
+                  company: "M2i Formation Diplômante · Villeneuve d'Ascq",
+                  desc: [],
+                  tags: [
+                    "PHP",
+                    "Symfony",
+                    "JavaScript",
+                    "Java",
+                    "UML",
+                    "Scrum",
+                  ],
+                },
+                {
+                  year: "2009",
+                  role: "Licence - Diplôme Comptable et de Gestion (DCG)",
+                  company: "Lycée Malraux · Béthune",
+                  desc: [],
+                  tags: [
+                    "Comptabilité",
+                    "Suite Office",
+                    "Contrôle de Gestion",
+                    "Informatique de Gestion",
+                  ],
+                  last: true,
+                },
+              ].map((item) => (
+                <div class="tl-entry">
+                  <div class="tl-entry-year">{item.year}</div>
+                  <div
+                    class:list={[
+                      "tl-entry-body",
+                      item.last && "tl-entry-body-last",
+                    ]}
                   >
-                    <Icon
-                      name="simple-icons:firefoxbrowser"
-                      class="project-icon"
-                    />
-                  </a>
-                )}
-              </div>
-            </div>
-          ))
-        }
+                    <div class="tl-role">{item.role}</div>
+                    <div class="tl-company">{item.company}</div>
+                    <ul class="tl-desc">
+                      {Array.isArray(item.desc) ? (
+                        item.desc.map((point) => <li>{point}</li>)
+                      ) : (
+                        <li>{item.desc}</li>
+                      )}
+                    </ul>
+                    <div class="tl-tags">
+                      {item.tags.map((t) => (
+                        <span class="tag">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- BLOG -->
-  <section class="blog" id="blog">
-    <div class="section-wrapper">
-      <div class="section-tag">Écrits</div>
-      <h2 class="section-title">Derniers<br /><em>articles</em></h2>
-      <p class="section-sub">
-        Je partage ici mes expériences, mes projets et mes réflexions autour du
-        développement web et des technologies que j’explore au quotidien.
-      </p>
+    <!-- STACK -->
+    <section class="stack" id="stack">
+      <div class="section-wrapper">
+        <div class="section-tag">Technologies</div>
+        <h2 class="section-title">Ma <em>stack</em><br />technique</h2>
+        <p class="section-sub">
+          Des technologies modernes et éprouvées pour créer des applications web
+          robustes et performantes.
+        </p>
 
-      {
-        blogPosts.length > 0 ? (
-          <div class="blog-grid">
-            {featuredPost && (
-              <BlogCard
-                slug={featuredPost.slug}
-                size="lg"
-                {...featuredPost.data}
-              />
-            )}
-            <div class="blog-right">
-              {sidePosts.map((post) => (
-                <BlogCard slug={post.slug} size="sm" {...post.data} />
-              ))}
+        <div class="stack-universe">
+          <div class="stack-categories">
+            {
+              [
+                {
+                  label: "Frontend",
+                  cls: "cat-front",
+                  items: [
+                    ["simple-icons:typescript", "TypeScript"],
+                    ["simple-icons:vuedotjs", "Vue.js"],
+                    ["simple-icons:react", "React"],
+                    ["simple-icons:tailwindcss", "Tailwind"],
+                    ["simple-icons:symfony", "Symfony UX"],
+                    ["simple-icons:astro", "Astro"],
+                  ],
+                },
+                {
+                  label: "Backend",
+                  cls: "cat-back",
+                  items: [
+                    ["simple-icons:php", "PHP"],
+                    ["simple-icons:symfony", "Symfony"],
+                    ["custom:api-platform", "API Platform"],
+                    ["simple-icons:prestashop", "PrestaShop"],
+                    ["simple-icons:python", "Python"],
+                    ["simple-icons:fastapi", "FastAPI"],
+                  ],
+                },
+                {
+                  label: "Data",
+                  cls: "cat-data",
+                  items: [
+                    ["simple-icons:mysql", "MySQL"],
+                    ["simple-icons:postgresql", "PostgreSQL"],
+                    ["simple-icons:prisma", "Prisma"],
+                  ],
+                },
+                {
+                  label: "Infra & Tooling",
+                  cls: "cat-infra",
+                  items: [
+                    ["simple-icons:docker", "Docker"],
+                    ["custom:cicd", "CI/CD"],
+                    ["simple-icons:github", "GitHub"],
+                    ["simple-icons:vite", "Vite"],
+                    ["simple-icons:jira", "Jira"],
+                  ],
+                },
+              ].map((cat) => (
+                <div>
+                  <div class="stack-cat-label">{cat.label}</div>
+                  <div class="stack-pills">
+                    {cat.items.map(([iconName, name]) => {
+                      const isCustom = iconName.startsWith("custom:");
+                      const customIcon = isCustom
+                        ? iconName.split(":")[1]
+                        : null;
+                      return (
+                        <div class:list={["stack-pill", cat.cls]}>
+                          <span class="sp-dot" />
+                          {isCustom ? (
+                            <img
+                              src={
+                                customIcon === "api-platform"
+                                  ? apiPlatformIcon.src
+                                  : cicdIcon.src
+                              }
+                              alt={name}
+                              class="sp-logo sp-logo-custom"
+                            />
+                          ) : (
+                            <Icon name={iconName} class="sp-logo" />
+                          )}
+                          {name}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <div class="stack-featured">
+            <div class="sf-header">
+              <div class="sf-header-dot"></div>
+              Stack favorite - usage quotidien
+            </div>
+            <div class="sf-items">
+              {
+                [
+                  {
+                    rank: "01",
+                    icon: "simple-icons:symfony",
+                    name: "Symfony + API Platform",
+                    desc: "Framework PHP de référence pour les APIs",
+                    exp: "5+ ans",
+                  },
+                  {
+                    rank: "02",
+                    icon: "simple-icons:vuedotjs",
+                    name: "Vue.js + TypeScript",
+                    desc: "Framework réactif pour interfaces modernes",
+                    exp: "3 ans",
+                  },
+                  {
+                    rank: "03",
+                    icon: "simple-icons:react",
+                    name: "React",
+                    desc: "Applications web dynamiques et SPAs",
+                    exp: "2 ans",
+                  },
+                  {
+                    rank: "04",
+                    icon: "simple-icons:postgresql",
+                    name: "PostgreSQL",
+                    desc: "Base de données relationnelle puissante",
+                    exp: "4 ans",
+                  },
+                  {
+                    rank: "05",
+                    icon: "simple-icons:docker",
+                    name: "Docker",
+                    desc: "Containerisation et environnements isolés",
+                    exp: "3 ans",
+                  },
+                ].map((item) => (
+                  <div class="sf-item">
+                    <div class="sf-rank">{item.rank}</div>
+                    <Icon name={item.icon} class="sf-icon-img" />
+                    <div class="sf-info">
+                      <div class="sf-name">{item.name}</div>
+                      <div class="sf-desc">{item.desc}</div>
+                    </div>
+                    <div class="sf-exp">{item.exp}</div>
+                  </div>
+                ))
+              }
             </div>
           </div>
-        ) : (
-          <p style="color:var(--text3)">Aucun article pour l'instant.</p>
-        )
-      }
-
-      <div style="margin-top:40px; text-align:center;">
-        <a href="/blog" class="btn btn-ghost">Voir tous les articles →</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOOTER -->
-  <footer id="contact">
-    <div class="footer-left">
-      Propulsé par <a
-        class="footer-link"
-        href="https://astro.build"
-        target="_blank"
-        rel="noopener">Astro</a
-      >
-    </div>
-    <div class="theme-switcher">
-      <button
-        class="theme-toggle"
-        id="theme-toggle"
-        aria-label="Toggle dark/light theme"
-      >
-        <svg
-          class="theme-icon theme-icon-sun"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-        <svg
-          class="theme-icon theme-icon-moon"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-      </button>
-    </div>
-  </footer>
+    <!-- PROJECTS -->
+    <section class="projects" id="projects">
+      <div class="section-wrapper">
+        <div class="section-tag">Portfolio</div>
+        <h2 class="section-title">Mes <em>projets</em></h2>
+        <p class="section-sub">
+          Projets personnels, proof of concept et side projects
+        </p>
+
+        <div class="projects-grid">
+          {
+            [].map((project) => (
+              <div class="project-card">
+                <div class="project-image">
+                  <img src={project.image} alt={project.title} />
+                  <span class="project-type">{project.type}</span>
+                </div>
+                <div class="project-content">
+                  <h3 class="project-title">{project.title}</h3>
+                  <p class="project-desc">{project.description}</p>
+                  <div class="project-tags">
+                    {project.tags.map((tag) => (
+                      <span class="project-tag">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+                <div class="project-footer">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener"
+                    class="project-link github-link"
+                    aria-label="GitHub"
+                  >
+                    <Icon name="simple-icons:github" class="project-icon" />
+                  </a>
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener"
+                      class="project-link demo-link"
+                      aria-label="Live Demo"
+                    >
+                      <Icon
+                        name="simple-icons:firefoxbrowser"
+                        class="project-icon"
+                      />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG -->
+    <section class="blog" id="blog">
+      <div class="section-wrapper">
+        <div class="section-tag">Écrits</div>
+        <h2 class="section-title">Derniers<br /><em>articles</em></h2>
+        <p class="section-sub">
+          Je partage ici mes expériences, mes projets et mes réflexions autour
+          du développement web et des technologies que j’explore au quotidien.
+        </p>
+
+        {
+          blogPosts.length > 0 ? (
+            <div class="blog-grid">
+              {featuredPost && (
+                <BlogCard
+                  slug={featuredPost.slug}
+                  size="lg"
+                  {...featuredPost.data}
+                />
+              )}
+              <div class="blog-right">
+                {sidePosts.map((post) => (
+                  <BlogCard slug={post.slug} size="sm" {...post.data} />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p style="color:var(--text)">Aucun article pour l'instant.</p>
+          )
+        }
+
+        <div style="margin-top:40px; text-align:center;">
+          <a href="/blog" class="btn btn-ghost">Voir tous les articles →</a>
+        </div>
+      </div>
+    </section>
+  </main>
 </BaseLayout>
 
 <style>
@@ -640,7 +610,7 @@ const sidePosts = blogPosts
     height: 60rem;
     background: radial-gradient(
       circle,
-      rgb(124 109 250 / 12%) 0%,
+      rgb(59 130 246 / 12%) 0%,
       transparent 70%
     );
   }
@@ -652,7 +622,7 @@ const sidePosts = blogPosts
     height: 40rem;
     background: radial-gradient(
       circle,
-      rgb(167 139 250 / 8%) 0%,
+      rgb(96 165 250 / 8%) 0%,
       transparent 70%
     );
   }
@@ -660,7 +630,7 @@ const sidePosts = blogPosts
   .hero h1 {
     margin-bottom: 2.4rem;
     font-family: "DM Serif Display", serif;
-    font-size: clamp(4.4rem, 6vw, 7.6rem);
+    font-size: clamp(5rem, 7vw, 8.4rem);
     line-height: 1.05;
     letter-spacing: -0.2rem;
   }
@@ -673,7 +643,7 @@ const sidePosts = blogPosts
   .hero-desc {
     max-width: 44rem;
     margin-bottom: 4rem;
-    font-size: 1.7rem;
+    font-size: 1.9rem;
     font-weight: 300;
     line-height: 1.75;
     color: var(--text2);
@@ -692,7 +662,7 @@ const sidePosts = blogPosts
     justify-content: center;
     width: 4.8rem;
     height: 4.8rem;
-    color: var(--text2);
+    color: var(--text);
     text-decoration: none;
     cursor: pointer;
     background: var(--bg3);
@@ -810,7 +780,7 @@ const sidePosts = blogPosts
   .stat-label {
     margin-top: 0.2rem;
     font-size: 1.2rem;
-    color: var(--text3);
+    color: var(--text2);
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
@@ -856,8 +826,8 @@ const sidePosts = blogPosts
     z-index: 1;
     background: linear-gradient(
         135deg,
-        rgb(124 109 250 / 35%),
-        rgb(167 139 250 / 10%),
+        rgb(59 130 246 / 35%),
+        rgb(96 165 250 / 10%),
         transparent 60%
       )
       border-box;
@@ -878,7 +848,7 @@ const sidePosts = blogPosts
     height: 10rem;
     background: radial-gradient(
       ellipse,
-      rgb(124 109 250 / 25%) 0%,
+      rgb(59 130 246 / 25%) 0%,
       transparent 70%
     );
     filter: blur(2rem);
@@ -938,7 +908,7 @@ const sidePosts = blogPosts
     font-family: "DM Mono", monospace;
     font-size: 1.1rem;
     line-height: 1.2;
-    color: var(--text3);
+    color: var(--text2);
     text-align: right;
     letter-spacing: 0.1em;
   }
@@ -969,7 +939,7 @@ const sidePosts = blogPosts
 
   .tl-entry:hover .tl-entry-body::before {
     background: var(--accent2);
-    box-shadow: 0 0 1.2rem rgb(167 139 250 / 50%);
+    box-shadow: 0 0 1.2rem rgb(96 165 250 / 50%);
   }
 
   .tl-entry-body::after {
@@ -990,7 +960,7 @@ const sidePosts = blogPosts
   .tl-role {
     margin-bottom: 0.3rem;
     font-family: "DM Serif Display", serif;
-    font-size: 2.1rem;
+    font-size: 2.4rem;
     line-height: 1.2;
     letter-spacing: -0.05rem;
     transition: color 0.2s;
@@ -1006,8 +976,8 @@ const sidePosts = blogPosts
     align-items: center;
     margin-bottom: 1.2rem;
     font-family: "DM Mono", monospace;
-    font-size: 1.3rem;
-    color: var(--text3);
+    font-size: 1.6rem;
+    color: var(--text2);
     letter-spacing: 0.04em;
   }
 
@@ -1023,7 +993,7 @@ const sidePosts = blogPosts
     max-width: 54rem;
     padding: 0;
     margin-bottom: 1.4rem;
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     font-weight: 300;
     line-height: 1.75;
     color: var(--text2);
@@ -1068,8 +1038,8 @@ const sidePosts = blogPosts
   }
 
   .tl-entry:hover .tag {
-    background: rgb(124 109 250 / 14%);
-    border-color: rgb(124 109 250 / 28%);
+    background: rgb(59 130 246 / 14%);
+    border-color: rgb(59 130 246 / 28%);
   }
 
   .tl-formation .tl-entry:hover .tl-entry-body::before {
@@ -1106,7 +1076,7 @@ const sidePosts = blogPosts
     margin-bottom: 1.4rem;
     font-family: "DM Mono", monospace;
     font-size: 1.05rem;
-    color: var(--text3);
+    color: var(--text2);
     text-transform: uppercase;
     letter-spacing: 0.18em;
   }
@@ -1129,7 +1099,7 @@ const sidePosts = blogPosts
     gap: 0.9rem;
     align-items: center;
     padding: 0.9rem 1.6rem;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 500;
     cursor: default;
     background: var(--bg3);
@@ -1197,13 +1167,13 @@ const sidePosts = blogPosts
   }
 
   .cat-infra:hover {
-    color: #c4b5fd;
-    border-color: rgb(167 139 250 / 40%);
+    color: #93c5fd;
+    border-color: rgb(59 130 246 / 40%);
   }
 
   .cat-infra .sp-dot {
-    background: #a78bfa;
-    box-shadow: 0 0 0.8rem rgb(167 139 250 / 50%);
+    background: #60a5fa;
+    box-shadow: 0 0 0.8rem rgb(96 165 250 / 50%);
   }
 
   .stack-featured {
@@ -1222,7 +1192,7 @@ const sidePosts = blogPosts
     padding: 2rem 2.4rem;
     font-family: "DM Mono", monospace;
     font-size: 1.1rem;
-    color: var(--text3);
+    color: var(--text2);
     text-transform: uppercase;
     letter-spacing: 0.14em;
     border-bottom: 1px solid var(--border);
@@ -1260,7 +1230,7 @@ const sidePosts = blogPosts
     width: 1.8rem;
     font-family: "DM Mono", monospace;
     font-size: 1.1rem;
-    color: var(--text3);
+    color: var(--text2);
     text-align: right;
   }
 
@@ -1281,21 +1251,21 @@ const sidePosts = blogPosts
   }
 
   .sf-name {
-    font-size: 1.45rem;
+    font-size: 1.7rem;
     font-weight: 500;
   }
 
   .sf-desc {
     margin-top: 0.2rem;
-    font-size: 1.2rem;
-    color: var(--text3);
+    font-size: 1.4rem;
+    color: var(--text2);
   }
 
   .sf-exp {
     padding: 0.3rem 0.9rem;
     font-family: "DM Mono", monospace;
     font-size: 1.1rem;
-    color: var(--text3);
+    color: var(--text2);
     white-space: nowrap;
     border: 1px solid var(--border);
     border-radius: 100px;
@@ -1330,7 +1300,7 @@ const sidePosts = blogPosts
 
   .project-card:hover {
     border-color: var(--accent2);
-    box-shadow: 0 0.8rem 2.4rem rgb(124 109 250 / 15%);
+    box-shadow: 0 0.8rem 2.4rem rgb(59 130 246 / 15%);
     transform: translateY(-0.4rem);
   }
 
@@ -1340,8 +1310,8 @@ const sidePosts = blogPosts
     height: 18rem;
     background: linear-gradient(
       135deg,
-      rgb(124 109 250 / 10%),
-      rgb(167 139 250 / 5%)
+      rgb(59 130 246 / 10%),
+      rgb(96 165 250 / 5%)
     );
   }
 
@@ -1365,7 +1335,7 @@ const sidePosts = blogPosts
     color: white;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    background: rgb(124 109 250 / 90%);
+    background: rgb(59 130 246 / 90%);
     border-radius: 100px;
   }
 
@@ -1379,7 +1349,7 @@ const sidePosts = blogPosts
 
   .project-title {
     font-family: "DM Serif Display", serif;
-    font-size: 1.8rem;
+    font-size: 2.1rem;
     line-height: 1.2;
     color: var(--text1);
     letter-spacing: -0.05rem;
@@ -1387,7 +1357,7 @@ const sidePosts = blogPosts
 
   .project-desc {
     flex: 1;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     line-height: 1.6;
     color: var(--text2);
   }
@@ -1404,8 +1374,8 @@ const sidePosts = blogPosts
     font-family: "DM Mono", monospace;
     font-size: 0.95rem;
     color: var(--accent2);
-    background: rgb(124 109 250 / 10%);
-    border: 1px solid rgb(124 109 250 / 20%);
+    background: rgb(59 130 246 / 10%);
+    border: 1px solid rgb(59 130 246 / 20%);
     border-radius: 100px;
   }
 
@@ -1474,105 +1444,6 @@ const sidePosts = blogPosts
 
   /*********************************  */
 
-  /****** FOOTER ********/
-
-  /*********************************  */
-  footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 3rem clamp(2.4rem, 5vw, 8rem);
-    border-top: 1px solid var(--border);
-  }
-
-  .footer-left {
-    font-size: 1.35rem;
-    color: var(--text3);
-  }
-
-  .footer-left strong {
-    font-weight: 500;
-    color: var(--text2);
-  }
-
-  .footer-left span {
-    font-size: 1.2rem;
-  }
-
-  .footer-link {
-    font-weight: 500;
-    color: var(--accent2);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: all 0.2s ease;
-  }
-
-  .footer-link:hover {
-    border-bottom-color: var(--accent2);
-    opacity: 0.8;
-  }
-
-  .footer-link:visited {
-    color: var(--accent2);
-  }
-
-  .theme-switcher {
-    display: flex;
-    align-items: center;
-  }
-
-  .theme-toggle {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 4.4rem;
-    height: 4.4rem;
-    color: var(--text2);
-    cursor: pointer;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 0.8rem;
-    transition: all 0.3s ease;
-  }
-
-  .theme-toggle:hover {
-    color: var(--text);
-    background: var(--surface);
-    border-color: var(--border2);
-  }
-
-  .theme-icon {
-    position: absolute;
-    width: 2rem;
-    height: 2rem;
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
-  }
-
-  .theme-icon-sun {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-  }
-
-  .theme-icon-moon {
-    opacity: 0;
-    transform: rotate(-90deg) scale(0.5);
-  }
-
-  :root[data-theme="light"] .theme-icon-sun {
-    opacity: 0;
-    transform: rotate(90deg) scale(0.5);
-  }
-
-  :root[data-theme="light"] .theme-icon-moon {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-  }
-
-  /*********************************  */
-
   /****** RESPONSIVE ********/
 
   /*********************************  */
@@ -1619,72 +1490,10 @@ const sidePosts = blogPosts
     .blog-grid {
       grid-template-columns: 1fr;
     }
-
-    footer {
-      flex-direction: column;
-      gap: 2rem;
-      text-align: center;
-    }
   }
 </style>
 
 <script>
-  // Theme switcher
-  const themeToggle = document.getElementById(
-    "theme-toggle",
-  ) as HTMLButtonElement | null;
-  const htmlElement = document.documentElement;
-
-  // Get saved theme from localStorage or detect system preference
-  function getInitialTheme(): string {
-    const saved = localStorage.getItem("theme");
-    if (saved) return saved;
-
-    // Check system preference
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: light)").matches
-    ) {
-      return "light";
-    }
-    return "dark";
-  }
-
-  // Set theme
-  function setTheme(theme: string): void {
-    if (theme === "light") {
-      htmlElement.setAttribute("data-theme", "light");
-      localStorage.setItem("theme", "light");
-    } else {
-      htmlElement.removeAttribute("data-theme");
-      localStorage.setItem("theme", "dark");
-    }
-  }
-
-  // Initialize theme on page load
-  const initialTheme = getInitialTheme();
-  setTheme(initialTheme);
-
-  // Toggle theme on button click
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      const currentTheme = htmlElement.getAttribute("data-theme");
-      const newTheme = currentTheme === "light" ? "dark" : "light";
-      setTheme(newTheme);
-    });
-  }
-
-  // Listen for system theme changes
-  if (window.matchMedia) {
-    window
-      .matchMedia("(prefers-color-scheme: light)")
-      .addEventListener("change", (e) => {
-        if (!localStorage.getItem("theme")) {
-          setTheme(e.matches ? "light" : "dark");
-        }
-      });
-  }
-
   // Navigation observer
   const links = document.querySelectorAll(".nav-links a");
   const observer = new IntersectionObserver(
