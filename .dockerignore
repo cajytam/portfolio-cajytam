@@ -1,0 +1,42 @@
+# Version control
+.git*
+.gitignore
+
+# Dependencies (will be installed in container)
+node_modules
+npm-debug.log
+
+# Build artifacts
+dist
+.astro
+
+# Development files
+.env*
+*.log
+coverage
+.nyc_output
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+
+# Documentation
+*.md
+docs/
+
+# Test files
+test/
+tests/
+spec/
+__tests__/
+
+# CI/CD
+.github
+.husky
+
+# Other
+.prettierignore
+.stylelintignore
