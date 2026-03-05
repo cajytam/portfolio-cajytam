@@ -269,50 +269,84 @@ const sections = [
 </style>
 
 <script>
-  // Handle scroll and active section
   document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelectorAll(".nav-link");
-    const sections = document.querySelectorAll("section[id]");
-    const heroSection = document.querySelector("section.hero");
+    const sections = Array.from(document.querySelectorAll("section[id]"));
+    let currentActiveId = "";
+    let nextActiveId = "";
+
+    const sectionRatios = new Map();
+
+    const setActiveSection = () => {
+      const sectionId = nextActiveId;
+      if (!sectionId || sectionId === currentActiveId) {
+        return;
+      }
+
+      currentActiveId = sectionId;
+      navLinks.forEach((link) => {
+        link.removeAttribute("aria-current");
+      });
+
+      const activeLink = document.querySelector(
+        `.nav-link[data-section="${sectionId}"]`,
+      );
+      if (activeLink) {
+        activeLink.setAttribute("aria-current", "page");
+      }
+    };
+
+    const fallbackActiveSection = () => {
+      const navOffset = 120;
+      let activeId = "";
+
+      sections.forEach((section) => {
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        if (sectionTop <= window.scrollY + navOffset) {
+          activeId = section.id;
+        }
+      });
+
+      return activeId || sections[0]?.id || "";
+    };
+
+    nextActiveId = fallbackActiveSection();
+    setActiveSection();
 
     const observerOptions = {
-      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5],
+      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6],
       rootMargin: "-100px 0px -30% 0px",
     };
 
     const observer = new IntersectionObserver((entries) => {
-      // Find the most visible section
-      let mostVisibleSection = null;
+      let mostVisibleSection = "";
       let maxVisibility = 0;
 
       entries.forEach((entry) => {
-        if (entry.isIntersecting && entry.intersectionRatio > maxVisibility) {
-          maxVisibility = entry.intersectionRatio;
-          mostVisibleSection = entry.target.id;
+        sectionRatios.set(
+          entry.target.id,
+          entry.isIntersecting ? entry.intersectionRatio : 0,
+        );
+      });
+
+      sectionRatios.forEach((ratio, sectionId) => {
+        if (ratio > maxVisibility) {
+          maxVisibility = ratio;
+          mostVisibleSection = sectionId;
         }
       });
 
       if (mostVisibleSection) {
-        // Remove active from all links
-        navLinks.forEach((link) => {
-          link.removeAttribute("aria-current");
-        });
-
-        // Add active to current link
-        const activeLink = document.querySelector(
-          `.nav-link[data-section="${mostVisibleSection}"]`,
-        );
-        if (activeLink) {
-          activeLink.setAttribute("aria-current", "page");
-        }
+        nextActiveId = mostVisibleSection;
+      } else {
+        nextActiveId = fallbackActiveSection();
       }
+
+      setActiveSection();
     }, observerOptions);
 
-    // Observe sections
-    if (heroSection) observer.observe(heroSection);
     sections.forEach((section) => observer.observe(section));
 
-    // Theme toggle
     const themeToggle = document.getElementById("nav-theme-toggle");
     if (themeToggle) {
       themeToggle.addEventListener("click", () => {

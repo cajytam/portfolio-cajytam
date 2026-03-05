@@ -1469,22 +1469,3 @@ const sidePosts = blogPosts
     }
   }
 </style>
-
-<script>
-  const links = document.querySelectorAll(".nav-links a");
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          links.forEach((l) => l.removeAttribute("aria-current"));
-          const active = document.querySelector(
-            `.nav-links a[href="#${e.target.id}"]`,
-          );
-          if (active) active.setAttribute("aria-current", "page");
-        }
-      });
-    },
-    { threshold: 0.4 },
-  );
-  document.querySelectorAll("section[id]").forEach((s) => observer.observe(s));
-</script>
