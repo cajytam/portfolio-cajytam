@@ -1,3 +1,5 @@
+import type { CollectionEntry } from "astro:content";
+
 export interface BaseLayoutProps {
   title?: string;
   description?: string;
@@ -8,7 +10,12 @@ export interface NavProps {
   currentPath?: string;
 }
 
-export type BlogCategory = "journey" | "autre";
+export type BlogCategory = CollectionEntry<"blog">["data"]["category"];
+
+export const categoryLabels: Record<BlogCategory, string> = {
+  journey: "Parcours",
+  autre: "Autre",
+};
 
 export interface BlogCardProps {
   slug: string;
@@ -31,7 +38,10 @@ export interface ArticleLayoutProps {
   coverImage?: string;
 }
 
-export const categoryLabels: Record<BlogCategory, string> = {
-  journey: "Parcours",
-  autre: "Autre",
-};
+export interface CardProps {
+  href: string;
+  title: string;
+  description: string;
+  tags?: string[];
+  coverImage?: string;
+}
