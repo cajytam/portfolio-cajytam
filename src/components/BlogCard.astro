@@ -10,7 +10,6 @@ const {
   excerpt,
   category,
   publishedAt,
-  readingTime,
   coverImage,
   size = "sm",
 } = Astro.props;
@@ -37,7 +36,7 @@ const dateStr = publishedAt.toLocaleDateString("fr-FR", {
   </div>
   <div class="blog-body">
     <div class="blog-cat">
-      {categoryLabels[category] ?? category} · {readingTime} min
+      {categoryLabels[category] ?? category}
     </div>
     <div class:list={["blog-title", size === "sm" && "blog-title-sm"]}>
       {title}

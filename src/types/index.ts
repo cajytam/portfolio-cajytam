@@ -23,7 +23,6 @@ export interface BlogCardProps {
   excerpt: string;
   category: BlogCategory;
   publishedAt: Date;
-  readingTime: number;
   coverImage?: string;
   size?: "lg" | "sm";
 }
@@ -34,7 +33,6 @@ export interface ArticleLayoutProps {
   excerpt: string;
   category: BlogCategory;
   tags: string[];
-  readingTime: number;
   coverImage?: string;
 }
 

@@ -6,8 +6,7 @@ import { categoryLabels } from "../types";
 
 type Props = ArticleLayoutProps;
 
-const { title, publishedAt, excerpt, category, tags, readingTime, coverImage } =
-  Astro.props;
+const { title, publishedAt, excerpt, category, tags, coverImage } = Astro.props;
 
 const dateStr = publishedAt.toLocaleDateString("fr-FR", {
   day: "numeric",
@@ -40,7 +39,6 @@ const dateStr = publishedAt.toLocaleDateString("fr-FR", {
           <div class="article-author">Cédric Matyja</div>
           <div class="article-date">{dateStr}</div>
         </div>
-        <div class="article-read-time">⏱ {readingTime} min de lecture</div>
       </div>
 
       {
@@ -147,16 +145,6 @@ const dateStr = publishedAt.toLocaleDateString("fr-FR", {
     font-family: "DM Mono", monospace;
     font-size: 1.25rem;
     color: var(--text3);
-  }
-
-  .article-read-time {
-    padding: 0.4rem 1.2rem;
-    margin-left: auto;
-    font-size: 1.2rem;
-    color: var(--text3);
-    white-space: nowrap;
-    border: 1px solid var(--border);
-    border-radius: 100px;
   }
 
   .article-lead {
