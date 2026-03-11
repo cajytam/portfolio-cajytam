@@ -9,9 +9,6 @@ const projects = (await getCollection("projects")).sort(
     new Date(b.data.publishedAt).getTime() -
     new Date(a.data.publishedAt).getTime(),
 );
-
-const featured = projects.filter((p) => p.data.featured);
-const others = projects.filter((p) => !p.data.featured);
 ---
 
 <BaseLayout title="Projets" description="Mes projets et réalisations">
@@ -28,34 +25,11 @@ const others = projects.filter((p) => !p.data.featured);
         </p>
       </header>
 
-      {
-        featured.length > 0 && (
-          <section class="projects-featured">
-            <div class="projects-label">En avant</div>
-            <div class="projects-grid projects-grid-featured">
-              {featured.map((project) => (
-                <Card
-                  href={`/projects/${project.slug}`}
-                  title={project.data.title}
-                  description={project.data.description}
-                  tags={project.data.tags}
-                  coverImage={project.data.coverImage?.src}
-                />
-              ))}
-            </div>
-          </section>
-        )
-      }
-
       <section class="projects-all">
-        {
-          featured.length > 0 && (
-            <div class="projects-label">Tous les projets</div>
-          )
-        }
+        <div class="projects-label">Tous les projets</div>
         <div class="projects-grid">
           {
-            others.map((project) => (
+            projects.map((project) => (
               <Card
                 href={`/projects/${project.slug}`}
                 title={project.data.title}
@@ -88,10 +62,6 @@ const others = projects.filter((p) => !p.data.featured);
     margin-bottom: 6.4rem;
   }
 
-  .projects-featured {
-    margin-bottom: 6.4rem;
-  }
-
   .projects-label {
     margin-bottom: 2rem;
     font-family: "DM Mono", monospace;
@@ -107,14 +77,8 @@ const others = projects.filter((p) => !p.data.featured);
     gap: 2rem;
   }
 
-  .projects-grid-featured {
-    grid-template-columns: repeat(auto-fill, minmax(40rem, 1fr));
-    gap: 2.4rem;
-  }
-
   @media (width <= 70rem) {
-    .projects-grid,
-    .projects-grid-featured {
+    .projects-grid {
       grid-template-columns: 1fr;
     }
   }

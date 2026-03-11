@@ -35,7 +35,7 @@ const projects: ProjectCard[] = (await getCollection("projects"))
     description: project.data.description,
     tags: project.data.tags,
     image: project.data.coverImage?.src,
-    type: project.data.featured ? "Projet phare" : "Projet",
+    type: project.data.type ?? "Side Project",
     github: project.data.githubUrl,
     demo: project.data.url,
   }));

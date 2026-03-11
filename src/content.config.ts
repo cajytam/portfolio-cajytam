@@ -21,11 +21,11 @@ const projects = defineCollection({
       title: z.string(),
       description: z.string(),
       tags: z.array(z.string()).default([]),
+      type: z.string().optional(),
       coverImage: image().optional(),
       url: z.string().url().optional(),
       githubUrl: z.string().url().optional(),
       publishedAt: z.coerce.date(),
-      featured: z.boolean().default(false),
     }),
 });
 

@@ -73,6 +73,10 @@ export default config({
           label: "Technologies",
           itemLabel: (props) => props.value ?? "Tag",
         }),
+        type: fields.text({
+          label: "Type de projet",
+          validation: { isRequired: false },
+        }),
         published: fields.checkbox({
           label: "En ligne",
           defaultValue: true,
@@ -93,10 +97,6 @@ export default config({
         publishedAt: fields.date({
           label: "Date",
           defaultValue: { kind: "today" },
-        }),
-        featured: fields.checkbox({
-          label: "Mettre en avant sur la homepage",
-          defaultValue: false,
         }),
         content: fields.mdx({
           label: "Description complète",
