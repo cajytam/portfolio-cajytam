@@ -16,6 +16,7 @@ export default defineConfig({
         "simple-icons": ["*"],
       },
     }),
-    ...(isDevMode ? [keystatic(), react(), mdx()] : []),
+    mdx(),
+    ...(isDevMode ? [keystatic(), react()] : []),
   ],
 });
