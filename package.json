@@ -1,41 +1,17 @@
 {
-  "name": "portfolio-cajytam",
+  "name": "cajytam-fr",
   "type": "module",
-  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "prettier:write": "prettier --write .",
-    "lint": "stylelint \"**/*.{css,astro}\" && prettier --check .",
-    "lint:fix": "stylelint \"**/*.{css,astro}\" --fix && prettier --write ."
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@fontsource-variable/dm-sans": "^5.2.8",
-    "@fontsource/dm-mono": "^5.2.7",
-    "@fontsource/dm-serif-display": "^5.2.8",
-    "@iconify-json/simple-icons": "^1.2.74",
-    "astro": "^6.0.8",
-    "astro-icon": "^1.1.5"
-  },
-  "devDependencies": {
-    "@astrojs/check": "^0.9.8",
-    "@astrojs/mdx": "^5.0.2",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
-    "postcss-html": "^1.8.1",
-    "prettier": "^3.8.1",
-    "prettier-plugin-astro": "^0.14.1",
-    "stylelint": "^17.5.0",
-    "stylelint-config-recess-order": "^7.7.0",
-    "stylelint-config-standard": "^40.0.0",
-    "typescript": "^5.9.3"
-  },
-  "lint-staged": {
-    "*.{css,astro}": [
-      "stylelint --fix",
-      "prettier --write"
-    ]
+    "nuxt": "^4.4.2",
+    "vue": "^3.5.32",
+    "vue-router": "^5.0.4"
   }
 }

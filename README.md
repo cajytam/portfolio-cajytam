@@ -1,29 +1,75 @@
-# cajytam.fr
+# Nuxt Minimal Starter
 
-Portfolio et blog personnel sous Astro 6
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Commandes
+## Setup
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-| `npm run lint`            | Check stylelint & Prettier                       |
-| `npm run lint:fix`        | Corrige stylelint & Prettier                     |
+Make sure to install dependencies:
 
-## CMS (Sveltia)
+```bash
+# npm
+npm install
 
-Le projet utilise un CMS Git-based compatible Astro 6 : Sveltia CMS
+# pnpm
+pnpm install
 
-- Interface admin: `/admin/`
-- Fichier HTML admin: `public/admin/index.html`
-- Configuration CMS: `public/admin/config.yml`
-- Contenus gérés: `src/content/blog` et `src/content/projects`
+# yarn
+yarn install
 
-### Backend GitHub
+# bun
+bun install
+```
 
-Pour les tests locaux => `local_backend: true` est active dans la config CMS.
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
+npm run dev
+
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
