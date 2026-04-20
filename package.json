@@ -16,11 +16,9 @@
     "@nuxt/content": "^3.13.0",
     "@vueuse/core": "^14.2.1",
     "@vueuse/motion": "^3.0.3",
-    "better-sqlite3": "^12.9.0",
     "lucide-vue-next": "^1.0.0",
     "nuxt": "^4.4.2",
     "prismjs": "^1.30.0",
-    "tailwindcss": "^4.2.2",
     "vue": "^3.5.32",
     "vue-router": "^5.0.4"
   },
@@ -28,7 +26,9 @@
     "@tailwindcss/vite": "^4.2.3",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/prismjs": "^1.26.6",
+    "better-sqlite3": "^12.9.0",
     "prettier": "^3.8.3",
-    "prettier-plugin-tailwindcss": "^0.7.2"
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "tailwindcss": "^4.2.2"
   }
 }
