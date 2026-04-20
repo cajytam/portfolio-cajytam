@@ -14,7 +14,6 @@
   "dependencies": {
     "@fontsource/dm-serif-display": "^5.2.8",
     "@nuxt/content": "^3.13.0",
-    "@tailwindcss/vite": "^4.2.2",
     "@vueuse/core": "^14.2.1",
     "@vueuse/motion": "^3.0.3",
     "better-sqlite3": "^12.9.0",
@@ -26,6 +25,7 @@
     "vue-router": "^5.0.4"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.2.3",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/prismjs": "^1.26.6",
     "prettier": "^3.8.3",
