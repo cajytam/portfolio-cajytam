@@ -4,7 +4,7 @@ import { Icon } from "astro-icon/components";
 
 <section
   id="accueil"
-  class="relative flex h-screen items-center justify-center overflow-hidden"
+  class="relative flex min-h-screen items-center justify-center overflow-hidden py-24"
 >
   <div
     class="absolute inset-0 bg-gradient-to-br from-indigo-100 via-zinc-50 to-zinc-50 dark:from-indigo-950 dark:via-zinc-950 dark:to-zinc-950"
@@ -20,8 +20,28 @@ import { Icon } from "astro-icon/components";
   </div>
 
   <div class="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-12">
-    <div class="grid items-center gap-16 lg:grid-cols-2">
-      <div>
+    <div class="grid items-center gap-30 lg:grid-cols-2">
+      <div
+        class="relative order-1 flex justify-center lg:order-none lg:justify-start"
+      >
+        <div class="relative">
+          <div
+            class="absolute inset-0 scale-110 rounded-full bg-gradient-to-br from-indigo-600 to-violet-600 opacity-20 blur-3xl dark:opacity-30"
+          >
+          </div>
+          <div
+            class="relative h-[22rem] w-[22rem] sm:h-[26rem] sm:w-[26rem] lg:h-[32rem] lg:w-[32rem] xl:h-[36rem] xl:w-[36rem]"
+          >
+            <img
+              src="/portrait.png"
+              alt="Cédric Matyja"
+              class="relative z-10 h-full w-full object-contain"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="order-2 lg:order-none">
         <div
           class="mb-4 font-medium tracking-wider text-indigo-500 dark:text-indigo-400"
         >
@@ -46,41 +66,47 @@ import { Icon } from "astro-icon/components";
           TypeScript&nbsp;/&nbsp;Vue.js&nbsp;/&nbsp;React.js et Python.
         </p>
 
-        <div class="flex flex-wrap gap-4">
+        <div class="flex flex-wrap items-center gap-3">
           <a
-            href="#contact"
-            class="rounded-lg bg-indigo-600 px-8 py-4 font-medium text-white transition-colors hover:bg-indigo-500"
+            href="https://github.com/cajytam"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            class="group flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-300 bg-white/60 text-zinc-700 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-indigo-400 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
           >
-            Me contacter
+            <Icon name="lucide:github" class="h-5 w-5" />
           </a>
           <a
-            href="#experience"
-            class="rounded-lg border border-zinc-300 px-8 py-4 font-medium text-zinc-700 transition-colors hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-600"
+            href="https://gitlab.com/cmatyja"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitLab"
+            class="group flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-300 bg-white/60 text-zinc-700 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-indigo-400 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
           >
-            Mon parcours
+            <Icon name="simple-icons:gitlab" class="h-5 w-5" />
           </a>
-        </div>
-      </div>
-
-      <div class="relative flex justify-center lg:justify-end">
-        <div class="relative">
-          <div
-            class="absolute inset-0 scale-110 rounded-full bg-gradient-to-br from-indigo-600 to-violet-600 opacity-20 blur-3xl dark:opacity-30"
+          <a
+            href="https://www.linkedin.com/in/c-matyja/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            class="group flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-300 bg-white/60 text-zinc-700 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-indigo-400 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
           >
-          </div>
-          <div class="relative h-80 w-80 lg:h-96 lg:w-96">
-            <img
-              src="/portrait.png"
-              alt="Cédric Matyja"
-              class="relative z-10 h-full w-full object-contain"
-            />
-          </div>
+            <Icon name="lucide:linkedin" class="h-5 w-5" />
+          </a>
+          <a
+            href="/blog"
+            class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 font-medium text-white shadow-lg shadow-indigo-600/30 transition-colors hover:bg-indigo-500"
+          >
+            <Icon name="lucide:book-open" class="h-4 w-4" />
+            Mon blog
+          </a>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="absolute bottom-12 left-1/2 -translate-x-1/2">
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
     <Icon
       name="lucide:arrow-down"
       class="h-6 w-6 animate-bounce text-zinc-400 dark:text-zinc-500"

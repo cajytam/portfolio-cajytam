@@ -1,0 +1,113 @@
+---
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) =>
+    new Date(b.data.publishedAt).getTime() -
+    new Date(a.data.publishedAt).getTime(),
+);
+---
+
+<section
+  id="projects"
+  class="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:px-12 lg:py-32"
+>
+  <div>
+    <div
+      class="mb-4 text-sm font-medium tracking-wider text-indigo-500 dark:text-indigo-400"
+    >
+      PORTFOLIO
+    </div>
+
+    <h2
+      class="mb-8 font-serif text-5xl font-bold text-zinc-900 lg:text-6xl dark:text-zinc-50"
+    >
+      Mes projets
+    </h2>
+
+    <p
+      class="mb-10 max-w-2xl text-lg text-zinc-600 lg:mb-20 dark:text-zinc-400"
+    >
+      Projets personnels, proof of concept et side projects.
+    </p>
+
+    {
+      projects.length === 0 ? (
+        <div class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-300 py-24 text-center dark:border-zinc-700">
+          <p class="text-zinc-600 dark:text-zinc-400">
+            Aucun projet pour l'instant.
+          </p>
+        </div>
+      ) : (
+        <>
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {projects.slice(0, 6).map((project) => (
+              <a
+                href={`/projects/${project.id}`}
+                class="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 transition-all hover:-translate-y-0.5 hover:border-indigo-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:hover:border-indigo-600"
+              >
+                {project.data.coverImage ? (
+                  <div class="aspect-video overflow-hidden">
+                    <img
+                      src={
+                        typeof project.data.coverImage === "string"
+                          ? project.data.coverImage
+                          : project.data.coverImage.src
+                      }
+                      alt={project.data.title}
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div class="flex aspect-video items-center justify-center bg-gradient-to-br from-indigo-100 to-violet-100 dark:from-indigo-950 dark:to-violet-950">
+                    <Icon
+                      name="lucide:rocket"
+                      class="h-12 w-12 text-indigo-500 dark:text-indigo-400"
+                    />
+                  </div>
+                )}
+                <div class="flex flex-1 flex-col gap-3 p-6">
+                  {project.data.type && (
+                    <span class="w-fit rounded-full bg-indigo-600/10 px-3 py-1 text-xs font-medium text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-300">
+                      {project.data.type}
+                    </span>
+                  )}
+                  <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-50">
+                    {project.data.title}
+                  </h3>
+                  <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    {project.data.description}
+                  </p>
+                  <div class="mt-auto flex flex-wrap gap-2 pt-3">
+                    {project.data.tags.map((tag) => (
+                      <span class="rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-0.5 text-xs text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+          {projects.length > 6 && (
+            <div class="mt-12 text-center">
+              <a
+                href="/projects"
+                class="inline-block rounded-lg border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 transition-colors hover:border-indigo-400 hover:text-indigo-500 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-indigo-600 dark:hover:text-indigo-400"
+              >
+                Voir tous les projets →
+              </a>
+            </div>
+          )}
+        </>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  h2 {
+    font-family: "DM Serif Display", serif;
+  }
+</style>
