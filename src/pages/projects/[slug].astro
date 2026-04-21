@@ -1,7 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import AppHeader from "../../components/AppHeader.astro";
+import Footer from "../../components/Footer.astro";
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -15,54 +18,195 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 const { title, description, tags, coverImage, url, githubUrl, publishedAt } =
   project.data;
+
+const dateStr = publishedAt.toLocaleDateString("fr-FR", {
+  year: "numeric",
+  month: "long",
+});
 ---
 
-<BaseLayout title={title} description={description}>
-  <main>
-    <article>
-      <header>
+<BaseLayout title={`${title} — Cédric Matyja`} description={description}>
+  <AppHeader mode="page" />
+
+  <main class="min-h-screen pt-16">
+    {
+      coverImage && (
+        <div class="relative h-[50vh] overflow-hidden">
+          <Image
+            src={coverImage}
+            alt={title}
+            width={1600}
+            height={900}
+            class="h-full w-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-zinc-50 via-zinc-50/50 to-transparent dark:from-zinc-950 dark:via-zinc-950/50" />
+        </div>
+      )
+    }
+
+    <article
+      class:list={[
+        "relative z-10 mx-auto max-w-4xl px-6",
+        coverImage ? "-mt-32" : "pt-16",
+      ]}
+    >
+      <div class="mb-6 flex flex-wrap gap-2">
+        <a
+          href="/projects"
+          class="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white/70 px-4 py-2 text-sm font-medium text-zinc-700 backdrop-blur-md transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-300 dark:hover:border-indigo-600 dark:hover:text-indigo-400"
+        >
+          <Icon name="lucide:arrow-left" class="h-4 w-4" />
+          Retour aux projets
+        </a>
+      </div>
+
+      <h1
+        class="mb-8 font-serif text-5xl leading-tight font-bold text-zinc-900 lg:text-7xl dark:text-zinc-50"
+      >
+        {title}
+      </h1>
+
+      <p class="mb-8 text-xl leading-relaxed text-zinc-700 dark:text-zinc-300">
+        {description}
+      </p>
+
+      <div class="mb-12 flex flex-wrap gap-2">
         {
-          coverImage && (
-            <Image src={coverImage} alt={title} width={1200} height={630} />
+          tags.map((tag) => (
+            <span class="rounded-full border border-zinc-200 bg-zinc-100 px-3 py-1 text-sm text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
+              {tag}
+            </span>
+          ))
+        }
+      </div>
+
+      <div
+        class="mb-12 flex flex-wrap gap-4 text-sm text-zinc-500 dark:text-zinc-400"
+      >
+        <time datetime={publishedAt.toISOString()}>{dateStr}</time>
+        {
+          url && (
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-1 text-indigo-500 hover:text-indigo-400 dark:text-indigo-400"
+            >
+              Voir le projet →
+            </a>
           )
         }
-        <h1>{title}</h1>
-        <p>{description}</p>
+        {
+          githubUrl && (
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-1 text-indigo-500 hover:text-indigo-400 dark:text-indigo-400"
+            >
+              <Icon name="lucide:github" class="h-4 w-4" /> GitHub →
+            </a>
+          )
+        }
+      </div>
 
-        <ul class="tags">
-          {tags.map((tag) => <li>{tag}</li>)}
-        </ul>
-
-        <div class="links">
-          {
-            url && (
-              <a href={url} target="_blank" rel="noopener">
-                Voir le projet →
-              </a>
-            )
-          }
-          {
-            githubUrl && (
-              <a href={githubUrl} target="_blank" rel="noopener">
-                GitHub →
-              </a>
-            )
-          }
-        </div>
-
-        <time datetime={publishedAt.toISOString()}>
-          {
-            new Date(publishedAt).toLocaleDateString("fr-FR", {
-              year: "numeric",
-              month: "long",
-            })
-          }
-        </time>
-      </header>
-
-      <div class="content">
+      <div class="project-prose">
         <Content />
       </div>
     </article>
+
+    <div class="h-32"></div>
   </main>
+
+  <Footer />
 </BaseLayout>
+
+<style>
+  h1 {
+    font-family: "DM Serif Display", serif;
+  }
+
+  .project-prose {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgb(82 82 91);
+  }
+
+  :global(.dark) .project-prose {
+    color: rgb(212 212 216);
+  }
+
+  .project-prose :global(h2) {
+    margin: 3rem 0 1rem;
+    font-family: "DM Serif Display", serif;
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: rgb(24 24 27);
+  }
+
+  :global(.dark) .project-prose :global(h2) {
+    color: rgb(250 250 250);
+  }
+
+  .project-prose :global(h3) {
+    margin: 2rem 0 0.75rem;
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: rgb(24 24 27);
+  }
+
+  :global(.dark) .project-prose :global(h3) {
+    color: rgb(250 250 250);
+  }
+
+  .project-prose :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .project-prose :global(ul),
+  .project-prose :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-prose :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .project-prose :global(strong) {
+    font-weight: 600;
+    color: rgb(24 24 27);
+  }
+
+  :global(.dark) .project-prose :global(strong) {
+    color: rgb(250 250 250);
+  }
+
+  .project-prose :global(a) {
+    color: rgb(99 102 241);
+    text-decoration: underline;
+  }
+
+  .project-prose :global(pre) {
+    padding: 1.5rem;
+    margin: 2rem 0;
+    overflow-x: auto;
+    font-family: "DM Mono", ui-monospace, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: rgb(228 228 231);
+    background: rgb(24 24 27);
+    border: 1px solid rgb(63 63 70);
+    border-radius: 1rem;
+  }
+
+  .project-prose :global(:not(pre) > code) {
+    padding: 0.15rem 0.4rem;
+    font-family: "DM Mono", monospace;
+    font-size: 0.85em;
+    color: rgb(99 102 241);
+    background: rgb(99 102 241 / 10%);
+    border: 1px solid rgb(99 102 241 / 20%);
+    border-radius: 0.35rem;
+  }
+</style>

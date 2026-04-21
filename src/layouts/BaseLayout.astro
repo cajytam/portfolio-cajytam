@@ -11,8 +11,8 @@ import type { BaseLayoutProps } from "../types";
 type Props = BaseLayoutProps;
 
 const {
-  title = "Cédric Matyja - Développeur Full Stack",
-  description = "Développeur Full Stack passionné par le PHP/Symfony, Typescript, React, Vuejs et Python",
+  title = "Cédric Matyja — Développeur Full Stack",
+  description = "Basé près de Lille, spécialisé en PHP / Symfony, TypeScript / Vue.js / React.js et Python.",
   ogImage = "/images/og-default.png",
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -50,18 +50,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
 
     <script is:inline>
-      const saved = localStorage.getItem("theme");
-      const prefersDark =
-        window.matchMedia("(prefers-color-scheme: light)").matches === false;
-      const theme = saved || (prefersDark ? "dark" : "light");
-      if (theme === "light") {
-        document.documentElement.setAttribute("data-theme", "light");
-      }
+      const stored = localStorage.getItem("theme");
+      const dark = stored ? stored === "dark" : true;
+      document.documentElement.classList.toggle("dark", dark);
     </script>
 
     <slot name="head" />
   </head>
-  <body>
+  <body
+    class="bg-zinc-50 text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-zinc-50"
+  >
     <slot />
   </body>
 </html>

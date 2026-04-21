@@ -1,8 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Nav from "../../components/Nav.astro";
-import Card from "../../components/Card.astro";
+import AppHeader from "../../components/AppHeader.astro";
+import Footer from "../../components/Footer.astro";
+import { Icon } from "astro-icon/components";
 
 const projects = (await getCollection("projects")).sort(
   (a, b) =>
@@ -11,75 +12,98 @@ const projects = (await getCollection("projects")).sort(
 );
 ---
 
-<BaseLayout title="Projets" description="Mes projets et réalisations">
-  <Nav currentPath="/projects" />
+<BaseLayout
+  title="Projets — Cédric Matyja"
+  description="Mes projets et réalisations"
+>
+  <AppHeader mode="page" />
 
-  <main class="projects-page">
-    <div class="projects-wrapper">
-      <header class="projects-header">
-        <div class="section-tag">Realisations</div>
-        <h1 class="section-title">Mes <em>projets</em></h1>
-        <p class="section-sub">
-          Une selection de projets personnels et professionnels axes sur la
-          qualite de code, la performance et l'experience utilisateur.
-        </p>
-      </header>
-
-      <section class="projects-all">
-        <div class="projects-label">Tous les projets</div>
-        <div class="projects-grid">
-          {
-            projects.map((project) => (
-              <Card
-                href={`/projects/${project.id}`}
-                title={project.data.title}
-                description={project.data.description}
-                tags={project.data.tags}
-                coverImage={project.data.coverImage?.src}
-              />
-            ))
-          }
+  <main class="min-h-screen pt-16">
+    <section class="mx-auto max-w-7xl px-6 py-24 lg:px-12">
+      <div class="mb-16 max-w-2xl">
+        <div
+          class="mb-4 text-sm font-medium tracking-wider text-indigo-500 dark:text-indigo-400"
+        >
+          RÉALISATIONS
         </div>
-      </section>
-    </div>
+        <h1
+          class="mb-6 font-serif text-5xl font-bold text-zinc-900 lg:text-6xl dark:text-zinc-50"
+        >
+          Mes projets
+        </h1>
+        <p class="text-lg text-zinc-600 dark:text-zinc-400">
+          Une sélection de projets personnels et professionnels axés sur la
+          qualité de code, la performance et l'expérience utilisateur.
+        </p>
+      </div>
+
+      {
+        projects.length === 0 ? (
+          <div class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-300 py-24 text-center dark:border-zinc-700">
+            <p class="text-zinc-600 dark:text-zinc-400">
+              Aucun projet pour l'instant.
+            </p>
+          </div>
+        ) : (
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => (
+              <a
+                href={`/projects/${project.id}`}
+                class="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 transition-all hover:-translate-y-0.5 hover:border-indigo-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:hover:border-indigo-600"
+              >
+                {project.data.coverImage ? (
+                  <div class="aspect-video overflow-hidden">
+                    <img
+                      src={
+                        typeof project.data.coverImage === "string"
+                          ? project.data.coverImage
+                          : project.data.coverImage.src
+                      }
+                      alt={project.data.title}
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div class="flex aspect-video items-center justify-center bg-gradient-to-br from-indigo-100 to-violet-100 dark:from-indigo-950 dark:to-violet-950">
+                    <Icon
+                      name="lucide:rocket"
+                      class="h-12 w-12 text-indigo-500 dark:text-indigo-400"
+                    />
+                  </div>
+                )}
+                <div class="flex flex-1 flex-col gap-3 p-6">
+                  {project.data.type && (
+                    <span class="w-fit rounded-full bg-indigo-600/10 px-3 py-1 text-xs font-medium text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-300">
+                      {project.data.type}
+                    </span>
+                  )}
+                  <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-50">
+                    {project.data.title}
+                  </h3>
+                  <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    {project.data.description}
+                  </p>
+                  <div class="mt-auto flex flex-wrap gap-2 pt-3">
+                    {project.data.tags.map((tag) => (
+                      <span class="rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-0.5 text-xs text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </section>
   </main>
+
+  <Footer />
 </BaseLayout>
 
 <style>
-  .projects-page {
-    min-height: 100vh;
-    padding: 6rem clamp(2.4rem, 5vw, 8rem) 12rem;
-  }
-
-  .projects-wrapper {
-    width: 100%;
-    max-width: 144rem;
-    margin: 0 auto;
-  }
-
-  .projects-header {
-    max-width: 64rem;
-    margin-bottom: 6.4rem;
-  }
-
-  .projects-label {
-    margin-bottom: 2rem;
-    font-family: "DM Mono", monospace;
-    font-size: 1.1rem;
-    color: var(--text3);
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
-    gap: 2rem;
-  }
-
-  @media (width <= 70rem) {
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
+  h1 {
+    font-family: "DM Serif Display", serif;
   }
 </style>
