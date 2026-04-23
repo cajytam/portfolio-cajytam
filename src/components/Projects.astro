@@ -1,8 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import AppHeader from "../../components/AppHeader.astro";
-import Footer from "../../components/Footer.astro";
 import { Icon } from "astro-icon/components";
 
 const projects = (await getCollection("projects")).sort(
@@ -12,41 +9,40 @@ const projects = (await getCollection("projects")).sort(
 );
 ---
 
-<BaseLayout
-  title="Projets — Cédric Matyja"
-  description="Mes projets et réalisations"
+<section
+  id="projects"
+  class="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:px-12 lg:py-32"
 >
-  <AppHeader mode="page" />
+  <div>
+    <div
+      class="mb-4 text-sm font-medium tracking-wider text-indigo-600 dark:text-indigo-400"
+    >
+      PORTFOLIO
+    </div>
 
-  <main class="min-h-screen pt-16">
-    <section class="mx-auto max-w-7xl px-6 py-24 lg:px-12">
-      <div class="mb-16 max-w-2xl">
-        <div
-          class="mb-4 text-sm font-medium tracking-wider text-indigo-600 dark:text-indigo-400"
-        >
-          RÉALISATIONS
+    <h2
+      class="mb-8 font-serif text-5xl font-bold text-zinc-900 lg:text-6xl dark:text-zinc-50"
+    >
+      Mes projets
+    </h2>
+
+    <p
+      class="mb-10 max-w-2xl text-lg text-zinc-600 lg:mb-20 dark:text-zinc-400"
+    >
+      Projets personnels, proof of concept et side projects.
+    </p>
+
+    {
+      projects.length === 0 ? (
+        <div class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-300 py-24 text-center dark:border-zinc-700">
+          <p class="text-zinc-600 dark:text-zinc-400">
+            Aucun projet pour l'instant.
+          </p>
         </div>
-        <h1
-          class="mb-6 font-serif text-5xl font-bold text-zinc-900 lg:text-6xl dark:text-zinc-50"
-        >
-          Mes projets
-        </h1>
-        <p class="text-lg text-zinc-600 dark:text-zinc-400">
-          Une sélection de projets personnels et professionnels axés sur la
-          qualité de code, la performance et l'expérience utilisateur.
-        </p>
-      </div>
-
-      {
-        projects.length === 0 ? (
-          <div class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-300 py-24 text-center dark:border-zinc-700">
-            <p class="text-zinc-600 dark:text-zinc-400">
-              Aucun projet pour l'instant.
-            </p>
-          </div>
-        ) : (
+      ) : (
+        <>
           <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
+            {projects.slice(0, 6).map((project) => (
               <a
                 href={`/projects/${project.id}`}
                 class="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 transition-all hover:-translate-y-0.5 hover:border-indigo-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:hover:border-indigo-600"
@@ -94,16 +90,24 @@ const projects = (await getCollection("projects")).sort(
               </a>
             ))}
           </div>
-        )
-      }
-    </section>
-  </main>
-
-  <Footer />
-</BaseLayout>
+          {projects.length > 6 && (
+            <div class="mt-12 text-center">
+              <a
+                href="/projects"
+                class="inline-block rounded-lg border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 transition-colors hover:border-indigo-400 hover:text-indigo-500 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-indigo-600 dark:hover:text-indigo-400"
+              >
+                Voir tous les projets →
+              </a>
+            </div>
+          )}
+        </>
+      )
+    }
+  </div>
+</section>
 
 <style>
-  h1 {
+  h2 {
     font-family: "DM Serif Display", serif;
   }
 </style>

@@ -1,7 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import AppHeader from "../../components/AppHeader.astro";
+import Footer from "../../components/Footer.astro";
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -13,56 +16,437 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const { title, description, tags, coverImage, url, githubUrl, publishedAt } =
-  project.data;
+const {
+  title,
+  description,
+  tags,
+  coverImage,
+  url,
+  githubUrl,
+  publishedAt,
+  type,
+} = project.data;
+
+const year = publishedAt.getFullYear();
+const monthLabel = publishedAt.toLocaleDateString("fr-FR", { month: "long" });
+
+const allProjects = (await getCollection("projects")).sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+);
+const currentIndex = allProjects.findIndex((p) => p.id === project.id);
+const indexLabel = String(currentIndex + 1).padStart(2, "0");
+const nextProject =
+  allProjects.length > 1
+    ? allProjects[(currentIndex + 1) % allProjects.length]
+    : null;
 ---
 
-<BaseLayout title={title} description={description}>
-  <main>
-    <article>
-      <header>
-        {
-          coverImage && (
-            <Image src={coverImage} alt={title} width={1200} height={630} />
-          )
-        }
-        <h1>{title}</h1>
-        <p>{description}</p>
+<BaseLayout title={`${title} — Cédric Matyja`} description={description}>
+  <AppHeader mode="page" />
 
-        <ul class="tags">
-          {tags.map((tag) => <li>{tag}</li>)}
-        </ul>
+  <main class="relative min-h-screen overflow-hidden pt-16">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-x-0 top-16 h-160 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.12),transparent_60%)] dark:bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.18),transparent_55%)]"
+    >
+    </div>
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay dark:opacity-[0.06]"
+      style="background-image: radial-gradient(rgb(24 24 27) 1px, transparent 1px); background-size: 3px 3px;"
+    >
+    </div>
 
-        <div class="links">
-          {
-            url && (
-              <a href={url} target="_blank" rel="noopener">
-                Voir le projet →
-              </a>
-            )
-          }
-          {
-            githubUrl && (
-              <a href={githubUrl} target="_blank" rel="noopener">
-                GitHub →
-              </a>
-            )
-          }
+    <section
+      class="relative mx-auto max-w-7xl px-6 pt-12 pb-16 lg:px-12 lg:pt-20 lg:pb-24"
+    >
+      <a
+        href="/projects"
+        class="group mb-10 inline-flex items-center gap-2 font-mono text-xs tracking-[0.2em] text-zinc-500 uppercase transition-colors hover:text-indigo-500 dark:text-zinc-400 dark:hover:text-indigo-400"
+      >
+        <Icon
+          name="lucide:arrow-left"
+          class="h-4 w-4 transition-transform group-hover:-translate-x-1"
+        />
+        Index des projets
+      </a>
+
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-10">
+        <div class="flex flex-col lg:col-span-6 xl:col-span-7">
+          <div
+            class="mb-8 flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400"
+          >
+            <span
+              aria-hidden="true"
+              class="h-1.5 w-1.5 rounded-full bg-indigo-500 dark:bg-indigo-400"
+            ></span>
+            {type ?? "Projet"}
+          </div>
+
+          <h1
+            class="font-serif text-5xl leading-[1.02] font-bold tracking-tight text-zinc-900 md:text-6xl lg:text-7xl xl:text-[5.5rem] dark:text-zinc-50"
+          >
+            {title}
+          </h1>
+
+          <p
+            class="mt-8 max-w-xl border-l-2 border-indigo-500 pl-5 text-lg leading-relaxed text-zinc-600 dark:border-indigo-400 dark:text-zinc-400"
+          >
+            {description}
+          </p>
+
+          <div class="mt-10 flex flex-wrap items-center gap-3">
+            {
+              url && (
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener"
+                  class="group inline-flex items-center gap-2 rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-medium text-zinc-50 transition-all hover:bg-indigo-600 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-indigo-400 dark:hover:text-zinc-50"
+                >
+                  Voir le projet
+                  <Icon
+                    name="lucide:arrow-up-right"
+                    class="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
+                </a>
+              )
+            }
+            {
+              githubUrl && (
+                <a
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:border-zinc-900 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-50 dark:hover:text-zinc-50"
+                >
+                  <Icon name="lucide:github" class="h-4 w-4" />
+                  Code source
+                </a>
+              )
+            }
+          </div>
         </div>
 
-        <time datetime={publishedAt.toISOString()}>
-          {
-            new Date(publishedAt).toLocaleDateString("fr-FR", {
-              year: "numeric",
-              month: "long",
-            })
-          }
-        </time>
-      </header>
-
-      <div class="content">
-        <Content />
+        {
+          coverImage && (
+            <div class="relative overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 lg:col-span-6 xl:col-span-5 dark:border-zinc-800 dark:bg-zinc-900">
+              <Image
+                src={coverImage}
+                alt={title}
+                width={1600}
+                height={1200}
+                class="h-full w-full object-cover"
+              />
+            </div>
+          )
+        }
       </div>
-    </article>
+    </section>
+
+    <section
+      class="relative mx-auto max-w-7xl px-6 pt-4 pb-16 lg:grid lg:grid-cols-12 lg:gap-12 lg:px-12 lg:pt-8 lg:pb-24"
+    >
+      <aside
+        class="mb-12 lg:sticky lg:top-28 lg:col-span-3 lg:mb-0 lg:self-start"
+      >
+        <div
+          class="mb-4 font-mono text-[0.7rem] tracking-[0.2em] text-zinc-500 uppercase dark:text-zinc-400 leading-0"
+        >
+          Date de publication
+        </div>
+        <div
+          class="mb-10 font-serif text-xl text-zinc-900 capitalize dark:text-zinc-50"
+        >
+          {monthLabel}
+          {year}
+        </div>
+
+        <div
+          class="mb-5 font-mono text-[0.7rem] tracking-[0.2em] text-zinc-500 uppercase dark:text-zinc-400"
+        >
+          Technologies
+        </div>
+        <ul class="flex flex-wrap gap-2 lg:flex-col lg:gap-1.5">
+          {
+            tags.map((tag, i) => (
+              <li class="group flex items-center gap-3 rounded-lg border border-zinc-200 bg-white/60 px-3 py-2 text-sm text-zinc-700 backdrop-blur-sm transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-300 dark:hover:border-indigo-500 dark:hover:text-indigo-400">
+                <span class="font-mono text-[0.65rem] text-zinc-400 dark:text-zinc-600">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span class="font-medium">{tag}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        {
+          (url || githubUrl) && (
+            <>
+              <div class="mt-10 mb-4 font-mono text-[0.7rem] tracking-[0.2em] text-zinc-500 uppercase dark:text-zinc-400">
+                Liens
+              </div>
+              <ul class="flex flex-col gap-2">
+                {url && (
+                  <li>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener"
+                      class="group inline-flex items-center gap-2 text-sm text-zinc-700 transition-colors hover:text-indigo-500 dark:text-zinc-300 dark:hover:text-indigo-400"
+                    >
+                      <Icon name="lucide:external-link" class="h-4 w-4" />
+                      Site en ligne
+                    </a>
+                  </li>
+                )}
+                {githubUrl && (
+                  <li>
+                    <a
+                      href={githubUrl}
+                      target="_blank"
+                      rel="noopener"
+                      class="group inline-flex items-center gap-2 text-sm text-zinc-700 transition-colors hover:text-indigo-500 dark:text-zinc-300 dark:hover:text-indigo-400"
+                    >
+                      <Icon name="lucide:github" class="h-4 w-4" />
+                      Dépôt GitHub
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </>
+          )
+        }
+      </aside>
+
+      <article class="lg:col-span-9">
+        <div class="relative lg:pl-10">
+          <div
+            aria-hidden="true"
+            class="absolute top-2 left-0 hidden h-24 w-px bg-linear-to-b from-indigo-500 to-transparent lg:block dark:from-indigo-400"
+          >
+          </div>
+          <div class="project-prose max-w-3xl">
+            <Content />
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="relative border-t border-zinc-200 dark:border-zinc-800">
+      <a
+        href={nextProject ? `/projects/${nextProject.id}` : "/projects"}
+        class="group relative block overflow-hidden px-6 py-20 transition-colors hover:bg-zinc-100/60 lg:px-12 lg:py-28 dark:hover:bg-zinc-900/40"
+      >
+        <div class="mx-auto max-w-7xl">
+          <div
+            class="mb-4 font-mono text-xs tracking-[0.2em] text-indigo-500 uppercase dark:text-indigo-400"
+          >
+            {nextProject ? "Projet suivant" : "Retour à l'index"}
+          </div>
+          <div class="flex items-end justify-between gap-6">
+            <h2
+              class="font-serif text-4xl leading-tight font-bold text-zinc-900 md:text-6xl lg:text-7xl dark:text-zinc-50"
+            >
+              {nextProject ? nextProject.data.title : "Tous les projets"}
+            </h2>
+            <Icon
+              name="lucide:arrow-right"
+              class="h-10 w-10 shrink-0 text-zinc-400 transition-all group-hover:translate-x-2 group-hover:text-indigo-500 md:h-14 md:w-14 dark:text-zinc-600 dark:group-hover:text-indigo-400"
+            />
+          </div>
+        </div>
+      </a>
+    </section>
   </main>
+
+  <Footer />
 </BaseLayout>
+
+<style>
+  h1,
+  h2 {
+    font-family: "DM Serif Display", serif;
+  }
+
+  .project-prose {
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    color: rgb(82 82 91);
+  }
+
+  :global(.dark) .project-prose {
+    color: rgb(212 212 216);
+  }
+
+  .project-prose :global(h2) {
+    position: relative;
+    margin: 3.5rem 0 1.25rem;
+    font-family: "DM Serif Display", serif;
+    font-size: 2.125rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: rgb(24 24 27);
+  }
+
+  :global(.dark) .project-prose :global(h2) {
+    color: rgb(250 250 250);
+  }
+
+  :global(.dark) .project-prose :global(h2::before) {
+    color: rgb(129 140 248);
+  }
+
+  .project-prose :global(h3) {
+    margin: 2.5rem 0 0.75rem;
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: rgb(24 24 27);
+  }
+
+  :global(.dark) .project-prose :global(h3) {
+    color: rgb(250 250 250);
+  }
+
+  .project-prose :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  :global(.dark) .project-prose :global(p:first-of-type) {
+    color: rgb(228 228 231);
+  }
+
+  .project-prose :global(ul),
+  .project-prose :global(ol) {
+    padding-left: 0;
+    margin-bottom: 1.75rem;
+    list-style: none;
+  }
+
+  .project-prose :global(ul li),
+  .project-prose :global(ol li) {
+    position: relative;
+    padding-left: 1.75rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .project-prose :global(ul li::before) {
+    position: absolute;
+    top: 0.65em;
+    left: 0;
+    width: 0.75rem;
+    height: 1px;
+    background: rgb(99 102 241);
+    content: "";
+  }
+
+  .project-prose :global(ol) {
+    counter-reset: prose-counter;
+  }
+
+  .project-prose :global(ol li) {
+    counter-increment: prose-counter;
+  }
+
+  .project-prose :global(ol li::before) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: "DM Mono", monospace;
+    font-size: 0.8rem;
+    color: rgb(99 102 241);
+    content: counter(prose-counter, decimal-leading-zero);
+  }
+
+  .project-prose :global(strong) {
+    font-weight: 600;
+    color: rgb(24 24 27);
+    background: linear-gradient(transparent 65%, rgb(99 102 241 / 20%) 65%);
+    padding: 0 0.1em;
+  }
+
+  :global(.dark) .project-prose :global(strong) {
+    color: rgb(250 250 250);
+    background: linear-gradient(transparent 65%, rgb(129 140 248 / 25%) 65%);
+  }
+
+  .project-prose :global(a) {
+    color: rgb(99 102 241);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+
+  .project-prose :global(a:hover) {
+    color: rgb(129 140 248);
+  }
+
+  .project-prose :global(blockquote) {
+    position: relative;
+    padding: 1.25rem 1.5rem 1.25rem 2.5rem;
+    margin: 2rem 0;
+    font-family: "DM Serif Display", serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    line-height: 1.4;
+    color: rgb(39 39 42);
+    border-left: 2px solid rgb(99 102 241);
+  }
+
+  .project-prose :global(blockquote::before) {
+    position: absolute;
+    top: -0.5rem;
+    left: 0.5rem;
+    font-size: 3rem;
+    line-height: 1;
+    color: rgb(99 102 241 / 30%);
+    content: "\201C";
+  }
+
+  :global(.dark) .project-prose :global(blockquote) {
+    color: rgb(244 244 245);
+  }
+
+  .project-prose :global(pre) {
+    padding: 1.5rem;
+    margin: 2rem 0;
+    overflow-x: auto;
+    font-family: "DM Mono", ui-monospace, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: rgb(228 228 231);
+    background: rgb(24 24 27);
+    border: 1px solid rgb(63 63 70);
+    border-radius: 1rem;
+  }
+
+  .project-prose :global(:not(pre) > code) {
+    padding: 0.15rem 0.4rem;
+    font-family: "DM Mono", monospace;
+    font-size: 0.85em;
+    color: rgb(99 102 241);
+    background: rgb(99 102 241 / 10%);
+    border: 1px solid rgb(99 102 241 / 20%);
+    border-radius: 0.35rem;
+  }
+
+  .project-prose :global(hr) {
+    position: relative;
+    width: 100px;
+    margin: 3rem auto;
+    border: none;
+    border-top: 1px solid rgb(99 102 241 / 40%);
+  }
+
+  .project-prose :global(img) {
+    width: 100%;
+    margin: 2.5rem 0;
+    border: 1px solid rgb(228 228 231);
+    border-radius: 1rem;
+  }
+
+  :global(.dark) .project-prose :global(img) {
+    border-color: rgb(63 63 70);
+  }
+</style>

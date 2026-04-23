@@ -1,0 +1,209 @@
+---
+import { Icon } from "astro-icon/components";
+import apiPlatformIcon from "../assets/icons/api-platform.svg?url";
+import cicdIcon from "../assets/icons/cicd.svg?url";
+
+type FavoriteItem = {
+  name: string;
+  role: string;
+  icons: string[];
+  span?: boolean;
+};
+
+const favorites: FavoriteItem[] = [
+  {
+    name: "Python · FastAPI",
+    role: "Mon combo préféré pour concevoir des API performantes et robustes",
+    icons: ["simple-icons:python", "simple-icons:fastapi"],
+    span: true,
+  },
+  {
+    name: "Vue.js",
+    role: "Le framework avec lequel je prends le plus de plaisir à coder",
+    icons: ["simple-icons:vuedotjs"],
+  },
+  {
+    name: "React",
+    role: "L'incontournable pour les projets front développés en équipe",
+    icons: ["simple-icons:react"],
+  },
+  {
+    name: "Nuxt",
+    role: "Tout le confort de Vue, avec un excellent support du SEO",
+    icons: ["simple-icons:nuxtdotjs"],
+  },
+  {
+    name: "Docker",
+    role: "Je ne me vois plus travailler sans",
+    icons: ["simple-icons:docker"],
+  },
+  {
+    name: "TypeScript",
+    role: "Une fois qu'on y goûte, difficile de revenir en arrière",
+    icons: ["simple-icons:typescript"],
+  },
+  {
+    name: "PostgreSQL",
+    role: "Ma base de données de référence, fiable et robuste",
+    icons: ["simple-icons:postgresql"],
+  },
+];
+
+type Tech = { name: string; icon: string; local?: boolean };
+
+const stack: Record<string, Tech[]> = {
+  frontend: [
+    { name: "TypeScript", icon: "simple-icons:typescript" },
+    { name: "Vue.js", icon: "simple-icons:vuedotjs" },
+    { name: "React", icon: "simple-icons:react" },
+    { name: "Tailwind CSS", icon: "simple-icons:tailwindcss" },
+    { name: "Symfony UX", icon: "simple-icons:symfony" },
+    { name: "Astro", icon: "simple-icons:astro" },
+  ],
+  backend: [
+    { name: "PHP", icon: "simple-icons:php" },
+    { name: "Symfony", icon: "simple-icons:symfony" },
+    { name: "API Platform", icon: apiPlatformIcon, local: true },
+    { name: "PrestaShop", icon: "simple-icons:prestashop" },
+    { name: "Python", icon: "simple-icons:python" },
+    { name: "FastAPI", icon: "simple-icons:fastapi" },
+  ],
+  data: [
+    { name: "MySQL", icon: "simple-icons:mysql" },
+    { name: "PostgreSQL", icon: "simple-icons:postgresql" },
+    { name: "Prisma", icon: "simple-icons:prisma" },
+  ],
+  devops: [
+    { name: "Docker", icon: "simple-icons:docker" },
+    { name: "CI/CD", icon: cicdIcon, local: true },
+    { name: "GitHub", icon: "simple-icons:github" },
+    { name: "Vite", icon: "simple-icons:vite" },
+    { name: "Jira", icon: "simple-icons:jira" },
+  ],
+};
+---
+
+<section
+  id="stack"
+  class="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:px-12 lg:py-32"
+>
+  <div>
+    <div
+      class="mb-4 text-sm font-medium tracking-wider text-indigo-600 dark:text-indigo-400"
+    >
+      STACK TECHNIQUE
+    </div>
+
+    <h2
+      class="mb-10 font-serif text-5xl font-bold text-zinc-900 lg:mb-16 lg:text-6xl dark:text-zinc-50"
+    >
+      Technologies favorites
+    </h2>
+
+    <div class="mb-20">
+      <div
+        class="mb-8 flex items-baseline justify-between gap-4 border-b border-zinc-200 pb-4 dark:border-zinc-800"
+      >
+        <h3
+          class="font-serif text-2xl font-bold text-zinc-900 lg:text-3xl dark:text-zinc-50"
+        >
+          Ma stack favorite
+        </h3>
+        <span
+          class="font-mono text-xs tracking-wider text-zinc-500 uppercase dark:text-zinc-400"
+        >
+          Le cœur
+        </span>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {
+          favorites.map((fav) => (
+            <article
+              class:list={[
+                "group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 p-6 transition-all hover:-translate-y-0.5 hover:border-indigo-400 hover:shadow-lg hover:shadow-indigo-500/5 dark:border-zinc-800 dark:bg-zinc-900/40 dark:hover:border-indigo-600 dark:hover:shadow-indigo-400/10",
+                fav.span ? "lg:col-span-2 lg:row-span-1" : "",
+              ]}
+            >
+              <div class="pointer-events-none absolute -top-px -right-px h-16 w-16 rounded-bl-full bg-linear-to-br from-indigo-500/0 via-indigo-500/0 to-indigo-500/0 transition-all group-hover:from-indigo-500/10 group-hover:via-indigo-500/5" />
+
+              <div class="flex items-center gap-3">
+                {fav.icons.map((icon) => (
+                  <Icon
+                    name={icon}
+                    class="h-9 w-9 text-zinc-700 transition-colors group-hover:text-indigo-500 dark:text-zinc-300 dark:group-hover:text-indigo-400"
+                  />
+                ))}
+              </div>
+
+              <div class="mt-8">
+                <div class="mb-1 font-serif text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+                  {fav.name}
+                </div>
+                <p class="text-sm text-zinc-600 dark:text-zinc-400">
+                  {fav.role}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="mb-8 flex items-baseline justify-between gap-4 border-b border-zinc-200 pb-4 dark:border-zinc-800"
+    >
+      <h3
+        class="font-serif text-2xl font-bold text-zinc-900 lg:text-3xl dark:text-zinc-50"
+      >
+        Le reste de la boîte à outils
+      </h3>
+      <span
+        class="font-mono text-xs tracking-wider text-zinc-500 uppercase dark:text-zinc-400"
+      >
+        Au quotidien
+      </span>
+    </div>
+
+    <div class="space-y-12">
+      {
+        Object.entries(stack).map(([category, technologies]) => (
+          <div>
+            <h4 class="mb-6 text-xl font-bold tracking-wider text-zinc-500 uppercase dark:text-zinc-400">
+              {category}
+            </h4>
+            <div class="flex flex-wrap gap-3">
+              {technologies.map((tech) => (
+                <div class="group flex cursor-pointer items-center gap-2.5 rounded-xl border border-zinc-200 bg-zinc-100 px-5 py-3 transition-all hover:-translate-y-0.5 hover:scale-[1.05] hover:border-indigo-400 hover:bg-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-600 dark:hover:bg-zinc-800">
+                  {tech.local ? (
+                    <img
+                      src={tech.icon}
+                      alt=""
+                      aria-hidden="true"
+                      class="h-5 w-5 object-contain dark:invert"
+                    />
+                  ) : (
+                    <Icon
+                      name={tech.icon}
+                      class="h-5 w-5 text-zinc-700 transition-colors group-hover:text-indigo-500 dark:text-zinc-300 dark:group-hover:text-indigo-400"
+                    />
+                  )}
+                  <span class="font-medium text-zinc-800 dark:text-zinc-200">
+                    {tech.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  h2,
+  h3 {
+    font-family: "DM Serif Display", serif;
+  }
+</style>

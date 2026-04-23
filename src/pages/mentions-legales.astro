@@ -1,0 +1,108 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AppHeader from "../components/AppHeader.astro";
+import Footer from "../components/Footer.astro";
+
+const sections = [
+  {
+    num: "01",
+    title: "Éditeur du site",
+    body: `Le site cajytam.fr est édité à titre personnel par Cédric Matyja, développeur passionné basé en France. Contact : <a href="mailto:contact@cajytam.fr" class="underline decoration-indigo-500 underline-offset-4 hover:text-zinc-900 dark:hover:text-zinc-50">contact@cajytam.fr</a>. Directeur de la publication : Cédric Matyja. Ce site personnel n'a aucun lien avec l'employeur actuel de son auteur.`,
+  },
+  {
+    num: "02",
+    title: "Hébergement",
+    body: `Le site est hébergé par IONOS SARL, 7 place de la Gare, 57200 Sarreguemines, France. Téléphone : 09 70 80 89 11. Site : <a href="https://www.ionos.fr" target="_blank" rel="noopener" class="underline decoration-indigo-500 underline-offset-4 hover:text-zinc-900 dark:hover:text-zinc-50">ionos.fr</a>.`,
+  },
+  {
+    num: "03",
+    title: "Propriété intellectuelle",
+    body: `L'ensemble du contenu de ce site — textes, graphismes, code source, logos, illustrations — demeure la propriété exclusive de Cédric Matyja, sauf mention contraire. Toute reproduction, représentation ou diffusion, totale ou partielle, est interdite sans autorisation écrite préalable.`,
+  },
+  {
+    num: "04",
+    title: "Données personnelles",
+    body: `Ce site ne collecte aucune donnée personnelle à des fins marketing ou publicitaires. Les informations transmises via les formulaires de contact sont utilisées uniquement pour répondre à votre demande, puis conservées pendant deux ans maximum. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données en écrivant à <a href="mailto:contact@cajytam.fr" class="underline decoration-indigo-500 underline-offset-4 hover:text-zinc-900 dark:hover:text-zinc-50">contact@cajytam.fr</a>.`,
+  },
+  {
+    num: "05",
+    title: "Cookies",
+    body: `Ce site n'utilise aucun cookie publicitaire ni traceur tiers. Seuls des cookies techniques strictement nécessaires au fonctionnement du site (préférence de thème clair/sombre) sont déposés sur votre navigateur.`,
+  },
+  {
+    num: "06",
+    title: "Responsabilité",
+    body: `Les informations publiées sur ce site sont fournies à titre informatif. Malgré le soin apporté à leur mise à jour, l'éditeur ne peut garantir leur exhaustivité ni leur exactitude absolue, et décline toute responsabilité quant à l'usage qui pourrait en être fait.`,
+  },
+  {
+    num: "07",
+    title: "Droit applicable",
+    body: `Le présent site est soumis au droit français. Tout litige relatif à son utilisation relève de la compétence exclusive des tribunaux français.`,
+  },
+];
+
+const lastUpdate = "Avril 2026";
+---
+
+<BaseLayout
+  title="Mentions légales — Cédric Matyja"
+  description="Mentions légales du site cajytam.fr : éditeur, hébergeur, propriété intellectuelle, données personnelles, cookies."
+>
+  <AppHeader mode="page" />
+
+  <main class="min-h-screen pt-16">
+    <section class="mx-auto max-w-4xl px-6 py-24 lg:px-12">
+      <div class="mb-16 max-w-2xl">
+        <div
+          class="mb-4 text-sm font-medium tracking-wider text-indigo-600 dark:text-indigo-400"
+        >
+          INFORMATIONS LÉGALES
+        </div>
+        <h1
+          class="mb-6 font-serif text-5xl font-bold text-zinc-900 lg:text-6xl dark:text-zinc-50"
+        >
+          Mentions légales
+        </h1>
+        <p class="text-lg text-zinc-600 dark:text-zinc-400">
+          Toutes les informations utiles sur l'édition, l'hébergement et la
+          gestion de ce site.
+        </p>
+        <p
+          class="mt-4 font-mono text-xs tracking-wider text-zinc-500 uppercase dark:text-zinc-400"
+        >
+          Dernière mise à jour : {lastUpdate}
+        </p>
+      </div>
+
+      <div class="divide-y divide-zinc-200 dark:divide-zinc-800">
+        {
+          sections.map((s) => (
+            <article class="grid gap-4 py-10 lg:grid-cols-[auto_1fr] lg:gap-12">
+              <div class="font-mono text-sm tracking-wider text-indigo-600 dark:text-indigo-400">
+                {s.num}
+              </div>
+              <div>
+                <h2 class="mb-3 font-serif text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+                  {s.title}
+                </h2>
+                <p
+                  class="leading-relaxed text-zinc-600 dark:text-zinc-400"
+                  set:html={s.body}
+                />
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  h1,
+  h2 {
+    font-family: "DM Serif Display", serif;
+  }
+</style>

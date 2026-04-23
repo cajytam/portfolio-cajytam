@@ -1,28 +1,52 @@
 ---
 title: cajytam.fr
-description: Mon portfolio et blog personnel développé avec Astro.
+description: Mon portfolio et blog technique, pensé pour être rapide, simple à maintenir et agréable à lire.
 tags:
   - Astro
   - TypeScript
-  - CSS
-type: Blog perso
+  - TailwindCSS
+  - Sveltia CMS
+type: Portfolio & Blog
 published: true
 coverImage: /src/assets/images/projects/cajytam-fr/coverImage.png
 url: https://cajytam.fr
 githubUrl: https://github.com/cajytam/cajytam.fr
 publishedAt: 2026-03-04
 ---
-## Présentation
 
-Ce site est mon portfolio personnel, développé avec **Astro** pour des performances optimales
+## Contexte & objectifs
 
-## Stack technique
+Ce site est à la fois mon portfolio et mon blog technique. Au-delà de la vitrine, il me sert de support pour documenter mes projets, formaliser mes apprentissages et partager des retours d’expérience.
 
-* **Astro**
-* **Keystatic**
-* **TypeScript**
-* **CSS**
+Trois priorités lors de sa conception :
 
-## Ce que j'ai appris
+- **performance** : temps de chargement quasi instantané
+- **maintenabilité** : base technique stable sur le long terme
+- **simplicité** : aucune complexité inutile côté infrastructure
 
-Construire ce projet m'a permis de maîtriser Astro et l'architecture de sites statiques modernes. Et également implémenter Keystatic, un Git-based CMS
+---
+
+## Stack & arbitrages
+
+- **Astro** : rendu statique par défaut, hydratation ciblée uniquement sur les composants interactifs pour réduire drastiquement le JavaScript envoyé au client
+- **TypeScript** : typage strict des contenus pour sécuriser la structure dès la phase d’édition
+- **Sveltia CMS** : CMS Git-based, versioning natif sans base de données
+- **TailwindCSS v4** : styling utility-first, CSS final optimisé au build
+- **Docker + Caddy** : déploiement reproductible avec HTTPS automatique
+
+Côté arbitrages, j’ai volontairement écarté un framework fullstack et toute base de données : surdimensionné pour un site majoritairement statique, et sources de coûts et de points de défaillance évitables. Le vrai défi a été de mettre en place un workflow de contenu fluide sans CMS traditionnel (résolu par l’approche Git-based qui combine simplicité et traçabilité, et sans avoir à gérer un système d'authentification et de connexion).
+
+---
+
+## Résultats
+
+- Score Lighthouse proche de **100**
+- Temps de chargement quasi instantané
+- Zéro dépendance backend à maintenir
+- Déploiement automatisé et reproductible
+
+---
+
+## Évolution
+
+Le site évolue en continu comme une base de connaissances personnelle : documentation de nouveaux projets, retours d’expérience, enrichissement progressif des contenus techniques. À la fois vitrine et référentiel que j’utilise régulièrement.

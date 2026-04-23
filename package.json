@@ -15,22 +15,30 @@
     "@fontsource-variable/dm-sans": "^5.2.8",
     "@fontsource/dm-mono": "^5.2.7",
     "@fontsource/dm-serif-display": "^5.2.8",
-    "@iconify-json/simple-icons": "^1.2.74",
-    "astro": "^6.0.8",
+    "@iconify-json/lucide": "^1.2.102",
+    "@iconify-json/simple-icons": "^1.2.79",
+    "astro": "^6.1.8",
     "astro-icon": "^1.1.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
-    "@astrojs/mdx": "^5.0.2",
+    "@astrojs/mdx": "^5.0.3",
+    "@tailwindcss/vite": "4.2.3",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "postcss-html": "^1.8.1",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
-    "stylelint": "^17.5.0",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "stylelint": "^17.8.0",
     "stylelint-config-recess-order": "^7.7.0",
     "stylelint-config-standard": "^40.0.0",
+    "tailwindcss": "4.2.3",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "vite": "^7.3.2"
   },
   "lint-staged": {
     "*.{css,astro}": [

@@ -1,0 +1,35 @@
+{
+	admin off
+	auto_https off
+	servers {
+		metrics off
+	}
+}
+
+:3000 {
+	root * /srv
+
+	respond /healthz 200
+
+	@blocked {
+		path /admin* /administrator* /wp-admin* /wp-login* /phpmyadmin* /pma*
+		path /.env* /.git* /xmlrpc.php
+		path *.php *.asp *.aspx *.jsp *.sql *.bak
+	}
+	respond @blocked 404
+
+	file_server {
+		precompressed br gzip
+	}
+
+	@dotfiles path_regexp \/\.
+	respond @dotfiles 404
+
+	header -Server
+
+	log {
+		output stdout
+		format json
+		level INFO
+	}
+}
