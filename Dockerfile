@@ -24,6 +24,10 @@ WORKDIR /srv
 COPY --from=build /app/dist /srv
 COPY Caddyfile /etc/caddy/Caddyfile
 
+RUN apk add --no-cache libcap && \
+    setcap -r /usr/bin/caddy && \
+    apk del libcap
+
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup && \
   mkdir -p /data /config && \
   chown -R appuser:appgroup /srv /data /config /etc/caddy
