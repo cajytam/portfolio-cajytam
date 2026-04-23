@@ -1,9 +1,6 @@
 {
 	admin off
 	auto_https off
-	servers {
-		metrics off
-	}
 }
 
 :3000 {
