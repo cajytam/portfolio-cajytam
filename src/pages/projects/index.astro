@@ -60,7 +60,7 @@ const projects = (await getCollection("projects")).sort(
                           : project.data.coverImage.src
                       }
                       alt={project.data.title}
-                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      class="h-full w-full object-cover"
                     />
                   </div>
                 ) : (
